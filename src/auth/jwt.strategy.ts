@@ -4,6 +4,11 @@ import { PassportStrategy } from '@nestjs/passport';
 import { ExtractJwt, Strategy } from 'passport-jwt';
 import {AuthService} from "../services/auth.service";
 
+export interface JwtPayload {
+    sub: number; // id користувача, зазвичай у полі "sub"
+    email?: string; // Можеш додавати інші поля, якщо вони є в токені
+}
+
 @Injectable()
 export class JwtStrategy extends PassportStrategy(Strategy) {
     constructor(private authService: AuthService) {
@@ -13,7 +18,7 @@ export class JwtStrategy extends PassportStrategy(Strategy) {
         });
     }
 
-    async validate(payload: any) {
-        return { userId: payload.sub, email: payload.email, roles: payload.roles };
+    async validate(payload: JwtPayload) {
+        return await this.authService.getUserById(payload.sub);
     }
 }

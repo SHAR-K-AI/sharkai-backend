@@ -12,8 +12,8 @@ export class UsersService {
         private usersRepository: Repository<User>,
     ) {}
 
-    async findOne(email: string): Promise<User | undefined> {
-        return this.usersRepository.findOne({ where: { email } });
+    async findOne(id: number): Promise<User | undefined> {
+        return this.usersRepository.findOne({ where: { id } });
     }
 
     // Знаходимо користувача за email

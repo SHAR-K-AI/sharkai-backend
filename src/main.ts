@@ -10,6 +10,8 @@ async function bootstrap() {
     credentials: true,
   });
 
+  app.setGlobalPrefix('api');
+
   // 🔵 Потім запускаємо сервер
   await app.listen(process.env.PORT ?? 8000);
 

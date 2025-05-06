@@ -3,6 +3,7 @@ import { Injectable } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 import * as bcrypt from 'bcrypt';
 import { UsersService } from './users.service';
+import {User} from "../entities/user.entity";
 
 @Injectable()
 export class AuthService {
@@ -10,6 +11,10 @@ export class AuthService {
         private usersService: UsersService,
         private jwtService: JwtService,
     ) {}
+
+    async getUserById(id: number): Promise<User> {
+        return await this.usersService.findOne(id);
+    }
 
     // Логіка входу користувача
     async login(user: any) {
