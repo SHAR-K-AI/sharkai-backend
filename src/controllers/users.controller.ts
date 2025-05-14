@@ -11,7 +11,6 @@ export class UsersController {
     @UseGuards(JwtAuthGuard)
     @Get('me')
     getMe(@Req() req): number {
-        console.log(req, "req")
         return req.user; // Тепер у req є користувач, отриманий з токену
     }
 }

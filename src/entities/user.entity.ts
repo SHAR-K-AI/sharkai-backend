@@ -6,8 +6,10 @@ import {
     JoinTable,
     CreateDateColumn,
     UpdateDateColumn,
+    ManyToOne, JoinColumn,
 } from 'typeorm';
 import { Role } from './roles.entity';
+import { Category } from './career-category.entity';
 
 @Entity({ name: 'users' })
 export class User {
@@ -42,4 +44,11 @@ export class User {
         inverseJoinColumn: { name: 'role_id', referencedColumnName: 'id' },
     })
     roles: Role[];
+
+    @ManyToOne(() => Category, (category) => category.users)
+    @JoinColumn({ name: "category_id" })
+    category: Category;
+
+    @Column({ type: "varchar", length: 100, nullable: true })
+    category_code: string;
 }

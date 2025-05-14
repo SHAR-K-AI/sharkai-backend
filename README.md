@@ -101,8 +101,8 @@ Nest is [MIT licensed](https://github.com/nestjs/nest/blob/master/LICENSE).
 
 ```json
 
-npx typeorm migration:create src/migrations/CreateProfessions
-npx typeorm migration:run
+yarn typeorm migration:create src/migrations/CreateProfessions
+yarn typeorm migration:run
 
 yarn ts-node -r tsconfig-paths/register ./node_modules/typeorm/cli.js migration:run -d data-source.ts
         
