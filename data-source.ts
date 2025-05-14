@@ -19,6 +19,9 @@ import {User} from "./src/entities/user.entity";
 import {Role} from "./src/entities/roles.entity";
 import {CreateProfessionCategories1747225128827} from "./src/migrations/1747225128827-CreateProfessionCategories";
 import {ProfessionCategory} from "./src/entities/profession-category.entity";
+import {CreateRiasecTestAndQuestions1747246746111} from "./src/migrations/1747246746111-CreateRiasecTestAndQuestions";
+import {RiasecTest} from "./src/entities/riasec-test.entity";
+import {RiasecQuestion} from "./src/entities/riasec-question.entity";
 
 export const AppDataSource = new DataSource({
     type: 'mysql', // Тип бази даних, змінено на MySQL
@@ -37,7 +40,9 @@ export const AppDataSource = new DataSource({
         IscoCategory,
         Profession,
         Category,
-        ProfessionCategory
+        ProfessionCategory,
+        RiasecTest,
+        RiasecQuestion
     ], // Додано всі сутності
     synchronize: false, // Вимкнути автоматичне синхронізування
     migrations: [
@@ -48,6 +53,7 @@ export const AppDataSource = new DataSource({
         CreateTestsStructure1746719367060,
         CreateCareerPaths1746730462448,
         // CreateCareerCategory1747084538375,
-        CreateProfessionCategories1747225128827
+        CreateProfessionCategories1747225128827,
+        CreateRiasecTestAndQuestions1747246746111
     ], // Шлях до міграцій
 });

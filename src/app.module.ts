@@ -9,6 +9,8 @@ import {ConfigModule} from '@nestjs/config';
 import {IscoCategoryModule} from "./modules/isco-category.module";
 import {TestsModule} from "./modules/tests.module";
 import {ProfessionCategoriesModule} from "./modules/profession-categories.module";
+import {RiasecModule} from "./modules/riasec.module";
+import {RiasecQuestionModule} from "./modules/riasec-question.module";
 
 
 @Module({
@@ -31,6 +33,8 @@ import {ProfessionCategoriesModule} from "./modules/profession-categories.module
         IscoCategoryModule,
         TestsModule,
         ProfessionCategoriesModule,
+        RiasecModule,
+        RiasecQuestionModule
     ],
     controllers: [AppController],
     providers: [AppService],
