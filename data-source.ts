@@ -22,6 +22,22 @@ import {ProfessionCategory} from "./src/entities/profession-category.entity";
 import {CreateRiasecTestAndQuestions1747246746111} from "./src/migrations/1747246746111-CreateRiasecTestAndQuestions";
 import {RiasecTest} from "./src/entities/riasec-test.entity";
 import {RiasecQuestion} from "./src/entities/riasec-question.entity";
+import {CreateMbtiTest1747303830951} from "./src/migrations/1747303830951-CreateMbtiTest";
+import {MbtiTest} from "./src/entities/mbti-test.entity";
+import {MbtiQuestion} from "./src/entities/mbti-question.entity";
+import {CreateDiscTestAndQuestions1747313369584} from "./src/migrations/1747313369584-CreateDiscTestAndQuestions";
+import {DiscTest} from "./src/entities/disc-test.entity";
+import {DiscQuestion} from "./src/entities/disc-question.entity";
+import {CreateGallupTestAndQuestions1747324557271} from "./src/migrations/1747324557271-CreateGallupTestAndQuestions";
+import {GallupTest} from "./src/entities/gallup-test.entity";
+import {GallupQuestion} from "./src/entities/gallup-question.entity";
+import {CreateBigFiveTest1747337484999} from "./src/migrations/1747337484999-CreateBigFiveTest";
+import {BigFiveTest} from "./src/entities/big-five-test.entity";
+import {BigFiveQuestion} from "./src/entities/big-five-question.entity";
+import {CreateAsvabTest1747385013673} from "./src/migrations/1747385013673-CreateAsvabTest";
+import {AsvabTest} from "./src/entities/asvab-test.entity";
+import {AsvabQuestion} from "./src/entities/asvab-question.entity";
+import {AsvabAnswer} from "./src/entities/asvab-answer.entity";
 
 export const AppDataSource = new DataSource({
     type: 'mysql', // Тип бази даних, змінено на MySQL
@@ -42,7 +58,18 @@ export const AppDataSource = new DataSource({
         Category,
         ProfessionCategory,
         RiasecTest,
-        RiasecQuestion
+        RiasecQuestion,
+        MbtiTest,
+        MbtiQuestion,
+        DiscTest,
+        DiscQuestion,
+        GallupTest,
+        GallupQuestion,
+        BigFiveTest,
+        BigFiveQuestion,
+        AsvabTest,
+        AsvabQuestion,
+        AsvabAnswer
     ], // Додано всі сутності
     synchronize: false, // Вимкнути автоматичне синхронізування
     migrations: [
@@ -54,6 +81,11 @@ export const AppDataSource = new DataSource({
         CreateCareerPaths1746730462448,
         // CreateCareerCategory1747084538375,
         CreateProfessionCategories1747225128827,
-        CreateRiasecTestAndQuestions1747246746111
+        CreateRiasecTestAndQuestions1747246746111,
+        CreateMbtiTest1747303830951,
+        CreateDiscTestAndQuestions1747313369584,
+        CreateGallupTestAndQuestions1747324557271,
+        CreateBigFiveTest1747337484999,
+        CreateAsvabTest1747385013673
     ], // Шлях до міграцій
 });

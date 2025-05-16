@@ -11,6 +11,13 @@ import {TestsModule} from "./modules/tests.module";
 import {ProfessionCategoriesModule} from "./modules/profession-categories.module";
 import {RiasecModule} from "./modules/riasec.module";
 import {RiasecQuestionModule} from "./modules/riasec-question.module";
+import {MbtiQuestionsModule} from "./modules/mbti-questions.module";
+import {MbtiTest} from "./entities/mbti-test.entity";
+import {MbtiTestsModule} from "./modules/mbti-tests.module";
+import {DiscModule} from "./modules/disc.module";
+import {GallupModule} from "./modules/gallup.module";
+import {BigFiveModule} from "./modules/big-five.module";
+import {AsvabModule} from "./modules/asvab.module";
 
 
 @Module({
@@ -34,7 +41,13 @@ import {RiasecQuestionModule} from "./modules/riasec-question.module";
         TestsModule,
         ProfessionCategoriesModule,
         RiasecModule,
-        RiasecQuestionModule
+        RiasecQuestionModule,
+        MbtiTestsModule,
+        MbtiQuestionsModule,
+        DiscModule,
+        GallupModule,
+        BigFiveModule,
+        AsvabModule
     ],
     controllers: [AppController],
     providers: [AppService],
