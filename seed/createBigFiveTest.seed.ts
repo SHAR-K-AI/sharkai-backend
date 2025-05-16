@@ -1,6 +1,6 @@
-import { AppDataSource } from '../../data-source';
-import {BigFiveTest} from "../entities/big-five-test.entity";
-import {BigFiveFactor, BigFiveQuestion} from "../entities/big-five-question.entity";
+import { AppDataSource } from '../data-source';
+import {BigFiveTest} from "../src/entities/big-five-test.entity";
+import {BigFiveFactor, BigFiveQuestion} from "../src/entities/big-five-question.entity";
 
 
 export async function createBigFiveTestWithQuestions() {

@@ -1,7 +1,7 @@
 // src/seed/createCategories.seed.ts
 
-import {AppDataSource} from "../../data-source";
-import {Category} from "../entities/career-category.entity";
+import {AppDataSource} from "../data-source";
+import {Category} from "../src/entities/career-category.entity";
 
 export async function createCategories() {
     const repo = AppDataSource.getRepository(Category);

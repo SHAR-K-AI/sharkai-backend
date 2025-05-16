@@ -1,7 +1,7 @@
-import {AppDataSource} from '../../data-source';
-import {AsvabTest} from '../entities/asvab-test.entity';
-import {AsvabQuestion} from '../entities/asvab-question.entity';
-import {AsvabAnswer} from '../entities/asvab-answer.entity';
+import {AppDataSource} from '../data-source';
+import {AsvabTest} from '../src/entities/asvab-test.entity';
+import {AsvabQuestion} from '../src/entities/asvab-question.entity';
+import {AsvabAnswer} from '../src/entities/asvab-answer.entity';
 
 export async function createAsvabTestWithQuestions() {
     const testRepo = AppDataSource.getRepository(AsvabTest);

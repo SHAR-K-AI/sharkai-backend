@@ -1,4 +1,4 @@
-import {AppDataSource} from "../../data-source";
+import {AppDataSource} from "../data-source";
 import {createProfessionCategories} from "./createProfessionCategories.seed";
 import {createRiasecTestWithQuestions} from "./createRiasecTest.seed";
 import {createMbtiTestWithQuestions} from "./createMbtiTest.seed";

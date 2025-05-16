@@ -33,7 +33,7 @@ export class Category {
     @OneToMany(() => Test, (test) => test.category)
     tests: Test[];
 
-    // Зв’язок з користувачами (якщо потрібно зберігати категорії, які вподобав юзер)
-    @OneToMany(() => User, (user) => user.category)
-    users: User[];
+    // // Зв’язок з користувачами (якщо потрібно зберігати категорії, які вподобав юзер)
+    // @OneToMany(() => User, (user) => user.category)
+    // users: User[];
 }

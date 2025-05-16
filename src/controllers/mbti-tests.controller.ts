@@ -2,6 +2,8 @@ import { Controller, Get, Post, Body, Param, Put, Delete } from '@nestjs/common'
 import {MbtiTestsService} from "../services/mbti-tests.service";
 import {CreateMbtiTestDto} from "../dto/create-mbti-test.dto";
 import {UpdateMbtiTestDto} from "../dto/update-mbti-test.dto";
+import {CreateUserMbtiResultDto} from "../dto/create-user-mbti-result.dto";
+import {UserMbtiResult} from "../entities/user-mbti-result.entity";
 
 @Controller('mbti-tests')
 export class MbtiTestsController {
@@ -30,5 +32,10 @@ export class MbtiTestsController {
     @Delete(':id')
     remove(@Param('id') id: string) {
         return this.mbtiTestsService.remove(id);
+    }
+
+    @Post('results')
+    async saveResult(@Body() dto: CreateUserMbtiResultDto): Promise<UserMbtiResult> {
+        return this.mbtiTestsService.saveUserResult(dto);
     }
 }

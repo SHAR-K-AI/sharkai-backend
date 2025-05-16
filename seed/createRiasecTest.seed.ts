@@ -1,6 +1,6 @@
-import { AppDataSource } from "../../data-source";
-import { RiasecTest } from "../entities/riasec-test.entity";
-import { RiasecQuestion, RiasecType } from "../entities/riasec-question.entity";
+import { AppDataSource } from "../data-source";
+import { RiasecTest } from "../src/entities/riasec-test.entity";
+import { RiasecQuestion, RiasecType } from "../src/entities/riasec-question.entity";
 
 export async function createRiasecTestWithQuestions() {
     const testRepo = AppDataSource.getRepository(RiasecTest);

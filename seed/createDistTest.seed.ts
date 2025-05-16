@@ -1,6 +1,6 @@
-import { AppDataSource } from '../../data-source';
-import { DiscTest } from '../entities/disc-test.entity';
-import { DiscQuestion, DiscStyle } from '../entities/disc-question.entity';
+import { AppDataSource } from '../data-source';
+import { DiscTest } from '../src/entities/disc-test.entity';
+import { DiscQuestion, DiscStyle } from '../src/entities/disc-question.entity';
 
 export async function createDiscTestWithQuestions() {
     const testRepo = AppDataSource.getRepository(DiscTest);

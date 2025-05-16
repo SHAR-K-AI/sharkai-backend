@@ -1,6 +1,6 @@
-import { AppDataSource } from '../../data-source';
-import { MbtiTest } from '../entities/mbti-test.entity';
-import { MbtiQuestion, MbtiDimension } from '../entities/mbti-question.entity';
+import { AppDataSource } from '../data-source';
+import { MbtiTest } from '../src/entities/mbti-test.entity';
+import { MbtiQuestion, MbtiDimension } from '../src/entities/mbti-question.entity';
 
 export async function createMbtiTestWithQuestions() {
     const testRepo = AppDataSource.getRepository(MbtiTest);

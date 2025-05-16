@@ -1,7 +1,7 @@
 
-import {AppDataSource} from "../../data-source";
+import {AppDataSource} from "../data-source";
 import categoriesData from "./data/profession-categories";
-import {ProfessionCategory} from "../entities/profession-category.entity";
+import {ProfessionCategory} from "../src/entities/profession-category.entity";
 
 interface CategoriesData {
     nameUa: string;

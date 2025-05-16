@@ -1,6 +1,6 @@
-import { AppDataSource } from '../../data-source';
-import { GallupTest } from '../entities/gallup-test.entity';
-import { GallupQuestion } from '../entities/gallup-question.entity';
+import { AppDataSource } from '../data-source';
+import { GallupTest } from '../src/entities/gallup-test.entity';
+import { GallupQuestion } from '../src/entities/gallup-question.entity';
 
 export async function createGallupTestWithQuestions() {
     const testRepo = AppDataSource.getRepository(GallupTest);

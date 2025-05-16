@@ -45,10 +45,10 @@ export class User {
     })
     roles: Role[];
 
-    @ManyToOne(() => Category, (category) => category.users)
-    @JoinColumn({ name: "category_id" })
-    category: Category;
+    // @ManyToOne(() => Category, (category) => category.users)
+    // @JoinColumn({ name: "category_id" })
+    // category: Category;
 
-    @Column({ type: "varchar", length: 100, nullable: true })
-    category_code: string;
+    // @Column({ type: "varchar", length: 100, nullable: true })
+    // category_code: string;
 }
