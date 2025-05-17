@@ -45,4 +45,15 @@ export class UsersService {
         user.password = await bcrypt.hash(password, 10);
         return this.usersRepository.save(user);
     }
+
+    async getUserProfile(userId: number): Promise<User> {
+        return this.usersRepository.findOne({
+            where: { id: userId },
+            relations: [
+                'roles',
+                'mbtiResults',
+                'mbtiResults.test.questions'
+            ],
+        });
+    }
 }

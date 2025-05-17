@@ -1,25 +1,29 @@
-import { Entity, PrimaryGeneratedColumn, Column, CreateDateColumn, UpdateDateColumn } from 'typeorm';
+import {
+    Entity,
+    PrimaryGeneratedColumn,
+    Column,
+    CreateDateColumn,
+    UpdateDateColumn,
+    OneToMany,
+} from "typeorm";
+import { ProfessionCategoryTranslation } from "./profession-category-translation.entity";
 
-@Entity('profession_categories')
+@Entity("profession_categories")
 export class ProfessionCategory {
     @PrimaryGeneratedColumn()
     id: number;
 
-    @Column({ name: 'name_ua' })
-    nameUa: string;
+    @Column({ unique: true })
+    code: string;
 
-    @Column({ name: 'name_en' })
-    nameEn: string;
+    @CreateDateColumn({ type: "timestamp" })
+    created_at: Date;
 
-    @Column({  name: 'description_ua', type: 'text', nullable: true })
-    descriptionUa?: string;
+    @UpdateDateColumn({ type: "timestamp" })
+    updated_at: Date;
 
-    @Column({ name: 'description_en', type: 'text', nullable: true })
-    descriptionEn?: string;
-
-    @CreateDateColumn({ name: 'created_at' })
-    createdAt: Date;
-
-    @UpdateDateColumn({ name: 'updated_at' })
-    updatedAt: Date;
+    @OneToMany(() => ProfessionCategoryTranslation, (translation) => translation.category, {
+        cascade: true,
+    })
+    translations: ProfessionCategoryTranslation[];
 }

@@ -1,7 +1,17 @@
 // src/mbti/entities/user-mbti-result.entity.ts
-import {Entity, PrimaryGeneratedColumn, Column, ManyToOne, CreateDateColumn, JoinColumn} from 'typeorm';
+import {
+    Entity,
+    PrimaryGeneratedColumn,
+    Column,
+    ManyToOne,
+    CreateDateColumn,
+    JoinColumn,
+    ManyToMany,
+    JoinTable
+} from 'typeorm';
 import { MbtiTest } from './mbti-test.entity';
 import {User} from "./user.entity";
+import {MbtiQuestion} from "./mbti-question.entity";
 
 @Entity('user_mbti_results')
 export class UserMbtiResult {

@@ -1,4 +1,4 @@
-import { Controller, Get, Post, Body, Param, Put, Delete } from '@nestjs/common';
+import {Controller, Get, Post, Body, Param, Put, Delete, Query} from '@nestjs/common';
 import {MbtiTestsService} from "../services/mbti-tests.service";
 import {CreateMbtiTestDto} from "../dto/create-mbti-test.dto";
 import {UpdateMbtiTestDto} from "../dto/update-mbti-test.dto";
@@ -9,14 +9,19 @@ import {UserMbtiResult} from "../entities/user-mbti-result.entity";
 export class MbtiTestsController {
     constructor(private readonly mbtiTestsService: MbtiTestsService) {}
 
+    @Get("first")
+    findFirst(@Query('lang') lang: string) {
+        return this.mbtiTestsService.findFirst(lang || 'en');
+    }
+
     @Get()
-    findAll() {
-        return this.mbtiTestsService.findAll();
+    findAll(@Query('lang') lang: string) {
+        return this.mbtiTestsService.findAllByLanguage(lang || 'en');
     }
 
     @Get(':id')
-    findOne(@Param('id') id: string) {
-        return this.mbtiTestsService.findOne(id);
+    findOne(@Param('id') id: string, @Query('lang') lang?: string) {
+        return this.mbtiTestsService.findOne(id, lang);
     }
 
     @Post()
@@ -37,5 +42,10 @@ export class MbtiTestsController {
     @Post('results')
     async saveResult(@Body() dto: CreateUserMbtiResultDto): Promise<UserMbtiResult> {
         return this.mbtiTestsService.saveUserResult(dto);
+    }
+
+    @Post('results/first')
+    async saveResultFirst(@Body() dto: CreateUserMbtiResultDto): Promise<UserMbtiResult> {
+        return this.mbtiTestsService.saveResultFirst(dto);
     }
 }

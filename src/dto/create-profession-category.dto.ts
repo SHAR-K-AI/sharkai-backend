@@ -1,21 +1,23 @@
-// src/dto/create-profession-category.dto.ts
+import { Type } from "class-transformer";
+import { IsString, IsOptional, ValidateNested } from "class-validator";
 
-import { IsNotEmpty, IsString, IsOptional } from 'class-validator';
+class TranslationDto {
+    @IsString()
+    languageCode: string;
+
+    @IsString()
+    field: string;
+
+    @IsString()
+    value: string;
+}
 
 export class CreateProfessionCategoryDto {
-    @IsNotEmpty()
     @IsString()
-    nameUa: string;
-
-    @IsNotEmpty()
-    @IsString()
-    nameEn: string;
+    code: string;
 
     @IsOptional()
-    @IsString()
-    descriptionUa?: string;
-
-    @IsOptional()
-    @IsString()
-    descriptionEn?: string;
+    @ValidateNested({ each: true })
+    @Type(() => TranslationDto)
+    translations?: TranslationDto[];
 }

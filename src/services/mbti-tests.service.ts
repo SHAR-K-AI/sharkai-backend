@@ -19,17 +19,70 @@ export class MbtiTestsService {
         private mbtiTestRepo: Repository<MbtiTest>,
     ) {}
 
+    async findFirst(locale?: string): Promise<any> {
+        const tests = await this.mbtiTestRepo.find({
+            relations: [
+                'questions',
+                'questions.translations',
+                'translations',
+            ],
+            order: { id: 'ASC' },
+            take: 1,
+        });
+
+        const test = tests[0];
+
+        if (!test) throw new NotFoundException('MBTI Test not found');
+
+        const testTranslation = test.translations.find(t => t.locale === locale);
+
+        return {
+            ...test,
+            title: testTranslation?.title ?? test.title,
+            description: testTranslation?.description ?? test.description,
+            questions: test.questions.map(question => {
+                const translation = question.translations?.find(t => t.locale === locale);
+                return {
+                    ...question,
+                    text: translation?.text ?? question.text,
+                };
+            }),
+            translations: undefined,
+        };
+    }
+
+
     findAll(): Promise<MbtiTest[]> {
         return this.mbtiTestRepo.find({ relations: ['questions'] });
     }
 
-    async findOne(id: string): Promise<MbtiTest> {
+    async findOne(id: string, locale?: string): Promise<any> {
         const test = await this.mbtiTestRepo.findOne({
             where: { id },
-            relations: ['questions'],
+            relations: [
+                'questions',
+                'questions.translations',
+                'translations',
+            ],
         });
+
         if (!test) throw new NotFoundException('MBTI Test not found');
-        return test;
+
+        const testTranslation = test.translations.find(t => t.locale === locale);
+
+        return {
+            ...test,
+            title: testTranslation?.title ?? test.title,
+            description: testTranslation?.description ?? test.description,
+            questions: test.questions.map(question => {
+                const translation = question.translations?.find(t => t.locale === locale);
+                return {
+                    ...question,
+                    text: translation?.text ?? question.text,
+                };
+            }),
+            translations: undefined,
+        };
     }
 
     create(dto: CreateMbtiTestDto): Promise<MbtiTest> {
@@ -61,4 +114,43 @@ export class MbtiTestsService {
 
         return this.resultRepo.save(result);
     }
+
+    async findAllByLanguage(language: string): Promise<MbtiTest[]> {
+        const tests = await this.mbtiTestRepo
+            .createQueryBuilder('test')
+            .leftJoinAndSelect('test.translations', 'translation')
+            .leftJoinAndSelect('test.questions', 'question')
+            .getMany();
+
+        console.log(test)
+
+        // Фільтруємо переклади по мові
+        return tests.map(test => ({
+            ...test,
+            translations: test.translations.filter(t => t.locale === language),
+        }));
+    }
+
+    async saveResultFirst(dto: CreateUserMbtiResultDto): Promise<UserMbtiResult> {
+        const user = await this.userRepo.findOneByOrFail({ id: Number(dto.userId) });
+
+        const test = await this.mbtiTestRepo.find({
+            order: { id: 'ASC' },
+            take: 1,
+        });
+
+        if (!test.length) {
+            throw new NotFoundException('MBTI Test not found');
+        }
+
+        const result = this.resultRepo.create({
+            user,
+            test: test[0],
+            result: 'user',
+            answers: dto.answers,
+        });
+
+        return this.resultRepo.save(result);
+    }
+
 }

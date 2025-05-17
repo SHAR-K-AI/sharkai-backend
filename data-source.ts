@@ -5,7 +5,6 @@ import {Profession} from "./src/entities/profession.entity";
 import {CreateProfessions1746134222680} from "./migrations/1746134222680-CreateProfessions";
 import {CreateRolesTable1746472423946} from "./migrations/1746472423946-CreateRolesTable";
 import {CreateUsersTable1746473314580} from "./migrations/1746473314580-CreateUsersTable";
-import {CreateDefaultUsers1746477067652} from "./migrations/1746477067652-CreateDefaultUsers";
 import {IscoCategory} from "./src/entities/isco-category.entity";
 import {CreateTestsStructure1746719367060} from "./migrations/1746719367060-CreateTestsStructure";
 import {CreateCareerPaths1746730462448} from "./migrations/1746730462448-CreateCareerPaths";
@@ -17,7 +16,6 @@ import {TestAnswer} from "./src/entities/test-answer.entity";
 import {TestLogic} from "./src/entities/test-logic.entity";
 import {User} from "./src/entities/user.entity";
 import {Role} from "./src/entities/roles.entity";
-import {CreateProfessionCategories1747225128827} from "./migrations/1747225128827-CreateProfessionCategories";
 import {ProfessionCategory} from "./src/entities/profession-category.entity";
 import {CreateRiasecTestAndQuestions1747246746111} from "./migrations/1747246746111-CreateRiasecTestAndQuestions";
 import {RiasecTest} from "./src/entities/riasec-test.entity";
@@ -40,6 +38,16 @@ import {AsvabQuestion} from "./src/entities/asvab-question.entity";
 import {AsvabAnswer} from "./src/entities/asvab-answer.entity";
 import {CreateUserMbtiResults1747390076056} from "./migrations/1747390076056-CreateUserMbtiResults";
 import {UserMbtiResult} from "./src/entities/user-mbti-result.entity";
+import {MbtiTestTranslation} from "./src/entities/mbti-test-translation.entity";
+import {MbtiQuestionTranslation} from "./src/entities/mbti-question-translation.entity";
+import {CreateProfessionCategories1747495847295} from "./src/migrations/1747495847295-CreateProfessionCategories";
+import {CreateProfessions1747495954719} from "./src/migrations/1747495954719-CreateProfessions";
+import {CreateSkills1747506269920} from "./src/migrations/1747506269920-CreateSkills";
+import {CreateCourses1747506638598} from "./src/migrations/1747506638598-CreateCourses";
+import {CreateProfessionRelations1747506708492} from "./src/migrations/1747506708492-CreateProfessionRelations";
+import {CreateUsersProfessions1747507509155} from "./src/migrations/1747507509155-CreateUsersProfessions";
+import {CreateUsersSkills1747507549607} from "./src/migrations/1747507549607-CreateUsersSkills";
+import {CreateUsersCourses1747507580098} from "./src/migrations/1747507580098-CreateUsersCourses";
 
 export const AppDataSource = new DataSource({
     type: 'mysql', // Тип бази даних, змінено на MySQL
@@ -49,47 +57,56 @@ export const AppDataSource = new DataSource({
     password: '11111111',
     database: 'shark',
     entities: [
-        Test,
-        TestAnswer,
-        TestQuestion,
-        TestLogic,
+        // Test,
+        // TestAnswer,
+        // TestQuestion,
+        // TestLogic,
         User,
         Role,
-        IscoCategory,
-        Profession,
-        Category,
-        ProfessionCategory,
-        RiasecTest,
-        RiasecQuestion,
+        // IscoCategory,
+        // Profession,
+        // Category,
+        // ProfessionCategory,
+        // RiasecTest,
+        // RiasecQuestion,
         MbtiTest,
         MbtiQuestion,
-        DiscTest,
-        DiscQuestion,
-        GallupTest,
-        GallupQuestion,
-        BigFiveTest,
-        BigFiveQuestion,
-        AsvabTest,
-        AsvabQuestion,
-        AsvabAnswer,
-        UserMbtiResult
+        // DiscTest,
+        // DiscQuestion,
+        // GallupTest,
+        // GallupQuestion,
+        // BigFiveTest,
+        // BigFiveQuestion,
+        // AsvabTest,
+        // AsvabQuestion,
+        // AsvabAnswer,
+        UserMbtiResult,
+        MbtiTestTranslation,
+        MbtiQuestionTranslation,
     ], // Додано всі сутності
     synchronize: false, // Вимкнути автоматичне синхронізування
     migrations: [
-        CreateProfessions1746134222680,
+        // CreateProfessions1746134222680,
         CreateRolesTable1746472423946,
         CreateUsersTable1746473314580,
-        CreateDefaultUsers1746477067652,
-        CreateTestsStructure1746719367060,
-        CreateCareerPaths1746730462448,
+        CreateProfessionCategories1747495847295,
+        CreateProfessions1747495954719,
+        CreateSkills1747506269920,
+        CreateCourses1747506638598,
+        CreateProfessionRelations1747506708492,
+        CreateUsersProfessions1747507509155,
+        CreateUsersSkills1747507549607,
+        CreateUsersCourses1747507580098,
+        // CreateTestsStructure1746719367060,
+        // CreateCareerPaths1746730462448,
         // CreateCareerCategory1747084538375,
-        CreateProfessionCategories1747225128827,
-        CreateRiasecTestAndQuestions1747246746111,
+        // CreateProfessionCategories1747225128827,
+        // CreateRiasecTestAndQuestions1747246746111,
         CreateMbtiTest1747303830951,
-        CreateDiscTestAndQuestions1747313369584,
-        CreateGallupTestAndQuestions1747324557271,
-        CreateBigFiveTest1747337484999,
-        CreateAsvabTest1747385013673,
+        // CreateDiscTestAndQuestions1747313369584,
+        // CreateGallupTestAndQuestions1747324557271,
+        // CreateBigFiveTest1747337484999,
+        // CreateAsvabTest1747385013673,
         CreateUserMbtiResults1747390076056
     ], // Шлях до міграцій
 });

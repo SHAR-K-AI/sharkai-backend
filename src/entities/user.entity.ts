@@ -6,10 +6,11 @@ import {
     JoinTable,
     CreateDateColumn,
     UpdateDateColumn,
-    ManyToOne, JoinColumn,
+    ManyToOne, JoinColumn, OneToMany,
 } from 'typeorm';
 import { Role } from './roles.entity';
 import { Category } from './career-category.entity';
+import {UserMbtiResult} from "./user-mbti-result.entity";
 
 @Entity({ name: 'users' })
 export class User {
@@ -44,6 +45,9 @@ export class User {
         inverseJoinColumn: { name: 'role_id', referencedColumnName: 'id' },
     })
     roles: Role[];
+
+    @OneToMany(() => UserMbtiResult, (mbtiResult) => mbtiResult.user)
+    mbtiResults: UserMbtiResult[];
 
     // @ManyToOne(() => Category, (category) => category.users)
     // @JoinColumn({ name: "category_id" })
