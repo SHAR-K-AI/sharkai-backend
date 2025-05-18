@@ -19,6 +19,11 @@ import {BigFiveModule} from "./modules/big-five.module";
 import {AsvabModule} from "./modules/asvab.module";
 import {ProfessionsModule} from "./modules/professions.module";
 import {SkillModule} from "./modules/skill.module";
+import {CourseModule} from "./modules/courses.module";
+import {CareerFindModule} from "./modules/career-find.module";
+import {CareerUpgradeModule} from "./modules/career-upgrade.module";
+import {CareerSwitch} from "./entities/career-switch.entity";
+import {CareerSwitchModule} from "./modules/career-switch.module";
 
 
 @Module({
@@ -40,6 +45,10 @@ import {SkillModule} from "./modules/skill.module";
         ProfessionCategoriesModule,
         ProfessionsModule,
         SkillModule,
+        CourseModule,
+        CareerFindModule,
+        CareerUpgradeModule,
+        CareerSwitchModule,
 
         IscoCategoryModule,
         TestsModule,

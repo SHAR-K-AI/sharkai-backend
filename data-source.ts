@@ -48,6 +48,14 @@ import {CreateProfessionRelations1747506708492} from "./src/migrations/174750670
 import {CreateUsersProfessions1747507509155} from "./src/migrations/1747507509155-CreateUsersProfessions";
 import {CreateUsersSkills1747507549607} from "./src/migrations/1747507549607-CreateUsersSkills";
 import {CreateUsersCourses1747507580098} from "./src/migrations/1747507580098-CreateUsersCourses";
+import {CreateCareerForms1747583409812} from "./src/migrations/1747583409812-CreateCareerForms";
+import {Course} from "./src/entities/course.entity";
+import {Skill} from "./src/entities/skill.entity";
+import {ProfessionCategoryTranslation} from "./src/entities/profession-category-translation.entity";
+import {ProfessionTranslation} from "./src/entities/profession-translation.entity";
+import {SkillTranslation} from "./src/entities/skill-translation.entity";
+import {CourseTranslation} from "./src/entities/course-translation.entity";
+import {UserCourse} from "./src/entities/users-courses.entity";
 
 export const AppDataSource = new DataSource({
     type: 'mysql', // Тип бази даних, змінено на MySQL
@@ -63,14 +71,27 @@ export const AppDataSource = new DataSource({
         // TestLogic,
         User,
         Role,
+
+        Profession,
+        ProfessionTranslation,
+
+        ProfessionCategory,
+        ProfessionCategoryTranslation,
+
+        Skill,
+        SkillTranslation,
+
+        Course,
+        CourseTranslation,
+
+        UserCourse,
         // IscoCategory,
         // Profession,
         // Category,
         // ProfessionCategory,
         // RiasecTest,
         // RiasecQuestion,
-        MbtiTest,
-        MbtiQuestion,
+
         // DiscTest,
         // DiscQuestion,
         // GallupTest,
@@ -80,6 +101,9 @@ export const AppDataSource = new DataSource({
         // AsvabTest,
         // AsvabQuestion,
         // AsvabAnswer,
+
+        MbtiTest,
+        MbtiQuestion,
         UserMbtiResult,
         MbtiTestTranslation,
         MbtiQuestionTranslation,
@@ -97,6 +121,7 @@ export const AppDataSource = new DataSource({
         CreateUsersProfessions1747507509155,
         CreateUsersSkills1747507549607,
         CreateUsersCourses1747507580098,
+        CreateCareerForms1747583409812,
         // CreateTestsStructure1746719367060,
         // CreateCareerPaths1746730462448,
         // CreateCareerCategory1747084538375,

@@ -5,11 +5,14 @@ import {
     Column,
     CreateDateColumn,
     UpdateDateColumn,
-    OneToMany, JoinColumn
+    OneToMany, JoinColumn, ManyToMany, JoinTable
 } from 'typeorm';
 
 import {ProfessionCategory} from './profession-category.entity';
 import {ProfessionTranslation} from './profession-translation.entity';
+import {Skill} from "./skill.entity";
+import {Course} from "./course.entity";
+import {User} from "./user.entity";
 
 @Entity('professions')
 export class Profession {
@@ -49,4 +52,23 @@ export class Profession {
 
     @OneToMany(() => ProfessionTranslation, translation => translation.profession, {cascade: true})
     translations: ProfessionTranslation[];
+
+    @ManyToMany(() => Skill)
+    @JoinTable({
+        name: "profession_skills",
+        joinColumn: { name: "profession_id", referencedColumnName: "id" },
+        inverseJoinColumn: { name: "skill_id", referencedColumnName: "id" },
+    })
+    skills: Skill[];
+
+    @ManyToMany(() => Course)
+    @JoinTable({
+        name: "profession_courses",
+        joinColumn: { name: "profession_id", referencedColumnName: "id" },
+        inverseJoinColumn: { name: "course_id", referencedColumnName: "id" },
+    })
+    courses: Course[];
+
+    @ManyToMany(() => User, user => user.professions)
+    users: User[];
 }

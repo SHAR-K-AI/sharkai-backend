@@ -11,6 +11,10 @@ import {
 import { Role } from './roles.entity';
 import { Category } from './career-category.entity';
 import {UserMbtiResult} from "./user-mbti-result.entity";
+import {Profession} from "./profession.entity";
+import {Skill} from "./skill.entity";
+import {UserCourse} from "./users-courses.entity";
+import {CareerFind} from "./career-find.entity";
 
 @Entity({ name: 'users' })
 export class User {
@@ -49,10 +53,26 @@ export class User {
     @OneToMany(() => UserMbtiResult, (mbtiResult) => mbtiResult.user)
     mbtiResults: UserMbtiResult[];
 
-    // @ManyToOne(() => Category, (category) => category.users)
-    // @JoinColumn({ name: "category_id" })
-    // category: Category;
+    @ManyToMany(() => Profession)
+    @JoinTable({
+        name: "users_professions",
+        joinColumn: { name: "user_id", referencedColumnName: "id" },
+        inverseJoinColumn: { name: "profession_id", referencedColumnName: "id" }
+    })
+    professions: Profession[];
 
-    // @Column({ type: "varchar", length: 100, nullable: true })
-    // category_code: string;
+
+    @ManyToMany(() => Skill)
+    @JoinTable({
+        name: "users_skills",
+        joinColumn: { name: "user_id", referencedColumnName: "id" },
+        inverseJoinColumn: { name: "skill_id", referencedColumnName: "id" }
+    })
+    skills: Skill[];
+
+    @OneToMany(() => UserCourse, userCourse => userCourse.user)
+    userCourses: UserCourse[];
+
+    @OneToMany(() => CareerFind, (careerFind) => careerFind.user)
+    careerFinds: CareerFind[];
 }

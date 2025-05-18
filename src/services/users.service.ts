@@ -51,6 +51,7 @@ export class UsersService {
             where: { id: userId },
             relations: [
                 'roles',
+                'careerFinds',
                 'mbtiResults',
                 'mbtiResults.test.questions'
             ],

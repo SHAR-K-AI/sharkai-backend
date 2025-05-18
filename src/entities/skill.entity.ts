@@ -4,9 +4,10 @@ import {
     Column,
     CreateDateColumn,
     UpdateDateColumn,
-    OneToMany,
+    OneToMany, ManyToMany,
 } from "typeorm";
 import { SkillTranslation } from "./skill-translation.entity";
+import {User} from "./user.entity";
 
 @Entity("skills")
 export class Skill {
@@ -26,4 +27,7 @@ export class Skill {
         cascade: true,
     })
     translations: SkillTranslation[];
+
+    @ManyToMany(() => User, user => user.skills)
+    users: User[];
 }
