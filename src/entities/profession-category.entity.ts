@@ -7,6 +7,7 @@ import {
     OneToMany,
 } from "typeorm";
 import { ProfessionCategoryTranslation } from "./profession-category-translation.entity";
+import {Profession} from "./profession.entity";
 
 @Entity("profession_categories")
 export class ProfessionCategory {
@@ -26,4 +27,7 @@ export class ProfessionCategory {
         cascade: true,
     })
     translations: ProfessionCategoryTranslation[];
+
+    @OneToMany(() => Profession, profession => profession.category)
+    professions: Profession[];
 }

@@ -2,7 +2,6 @@ import {Module} from '@nestjs/common';
 import {TypeOrmModule} from '@nestjs/typeorm';
 import {AppController} from './app.controller';
 import {AppService} from './app.service';
-import {ProfessionModule} from './modules/professions.module';
 import {AuthModule} from "./modules/auth.module";
 import {UsersModule} from "./modules/users.module";
 import {ConfigModule} from '@nestjs/config';
@@ -18,6 +17,8 @@ import {DiscModule} from "./modules/disc.module";
 import {GallupModule} from "./modules/gallup.module";
 import {BigFiveModule} from "./modules/big-five.module";
 import {AsvabModule} from "./modules/asvab.module";
+import {ProfessionsModule} from "./modules/professions.module";
+import {SkillModule} from "./modules/skill.module";
 
 
 @Module({
@@ -34,12 +35,14 @@ import {AsvabModule} from "./modules/asvab.module";
             synchronize: false, // true тільки в розробці
             migrations: ['dist/migrations/*.js'],
         }),
-        ProfessionModule,
         AuthModule,
         UsersModule,
+        ProfessionCategoriesModule,
+        ProfessionsModule,
+        SkillModule,
+
         IscoCategoryModule,
         TestsModule,
-        ProfessionCategoriesModule,
         RiasecModule,
         RiasecQuestionModule,
         MbtiTestsModule,

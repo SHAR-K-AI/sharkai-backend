@@ -1,33 +1,33 @@
-import {Body, Controller, Delete, Get, Param, Patch, Post} from "@nestjs/common";
-import { Profession } from "../entities/profession.entity";
-import {ProfessionService} from "../services/professions.service";
+import { Controller, Get, Post, Put, Delete, Param, Body } from '@nestjs/common';
+import { ProfessionsService } from '../services/professions.service';
+import { CreateProfessionDto } from '../dto/create-profession.dto';
 
 @Controller('professions')
-export class ProfessionController {
-    constructor(private readonly professionService: ProfessionService) {}
-
-    @Post()
-    create(@Body() data: Partial<Profession>) {
-        return this.professionService.create(data);
-    }
+export class ProfessionsController {
+    constructor(private readonly professionsService: ProfessionsService) {}
 
     @Get()
     findAll() {
-        return this.professionService.findAll();
+        return this.professionsService.findAll();
     }
 
     @Get(':id')
     findOne(@Param('id') id: string) {
-        return this.professionService.findOne(id);
+        return this.professionsService.findOne(Number(id));
     }
 
-    @Patch(':id')
-    update(@Param('id') id: string, @Body() data: Partial<Profession>) {
-        return this.professionService.update(id, data);
+    @Post()
+    create(@Body() data: CreateProfessionDto) {
+        return this.professionsService.create(data);
+    }
+
+    @Put(':id')
+    update(@Param('id') id: string, @Body() data: Partial<CreateProfessionDto>) {
+        return this.professionsService.update(Number(id), data);
     }
 
     @Delete(':id')
-    remove(@Param('id') id: string) {
-        return this.professionService.remove(id);
+    delete(@Param('id') id: string) {
+        return this.professionsService.delete(Number(id));
     }
 }

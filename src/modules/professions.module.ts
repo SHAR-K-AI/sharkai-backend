@@ -1,13 +1,16 @@
-import {Module} from "@nestjs/common";
-import {TypeOrmModule} from "@nestjs/typeorm";
-import { Profession } from "../entities/profession.entity";
-import {ProfessionController} from "../controllers/professions.controller";
-import {ProfessionService} from "../services/professions.service";
+import { Module } from '@nestjs/common';
+import { TypeOrmModule } from '@nestjs/typeorm';
+
+import { ProfessionsService } from '../services/professions.service';
+import {ProfessionsController} from "../controllers/professions.controller";
+
+import { Profession } from '../entities/profession.entity';
+import { ProfessionTranslation } from '../entities/profession-translation.entity';
 
 @Module({
-    imports: [TypeOrmModule.forFeature([Profession])],
-    controllers: [ProfessionController],
-    providers: [ProfessionService],
-    exports: [ProfessionService],
+    imports: [TypeOrmModule.forFeature([Profession, ProfessionTranslation])],
+    providers: [ProfessionsService],
+    controllers: [ProfessionsController],
+    exports: [ProfessionsService],
 })
-export class ProfessionModule {}
+export class ProfessionsModule {}

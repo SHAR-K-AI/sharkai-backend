@@ -1,67 +1,52 @@
-import { Entity, PrimaryGeneratedColumn, Column } from 'typeorm';
+import {
+    Entity,
+    PrimaryGeneratedColumn,
+    ManyToOne,
+    Column,
+    CreateDateColumn,
+    UpdateDateColumn,
+    OneToMany, JoinColumn
+} from 'typeorm';
+
+import {ProfessionCategory} from './profession-category.entity';
+import {ProfessionTranslation} from './profession-translation.entity';
 
 @Entity('professions')
 export class Profession {
-    @PrimaryGeneratedColumn('uuid')
-    id: string;
+    @PrimaryGeneratedColumn()
+    id: number;
 
-    @Column()
-    title: string;
+    @ManyToOne(() => ProfessionCategory, category => category.professions, {nullable: true, onDelete: 'SET NULL'})
+    @JoinColumn({name: 'category_id'})
+    category: ProfessionCategory;
 
-    @Column('text')
-    description: string;
+    @Column({type: 'json', nullable: true})
+    mbti: any;
 
-    @Column()
-    category: string;
+    @Column({type: 'json', nullable: true})
+    riasec: any;
 
-    @Column('text', { nullable: true })
-    skills_required: string;  // JSON як текст
+    @Column({type: 'json', nullable: true})
+    gallup: any;
 
-    @Column('text', { nullable: true })
-    education_level: string;
+    @Column({type: 'json', nullable: true})
+    bigFiveIdeal: any;
 
-    @Column('text', { nullable: true })
-    experience_level: string;
+    @Column({type: 'json', nullable: true})
+    asvab: any;
 
-    @Column('text', { nullable: true })
-    salary_range: string;
+    @Column({name: "salary_range", type: 'json', nullable: true})
+    salaryRange: any;
 
-    @Column('double', { nullable: true })
-    demand_score: number;
+    @Column({type: 'int', default: 0})
+    demand: number;
 
-    @Column('double', { nullable: true })
-    growth_projection: number;
+    @CreateDateColumn()
+    created_at: Date;
 
-    @Column('text', { nullable: true })
-    soft_skills: string;
-
-    @Column('text', { nullable: true })
-    hard_skills: string;
-
-    @Column('text', { nullable: true })
-    examples_of_jobs: string;
-
-    @Column('text', { nullable: true })
-    learning_paths: string;
-
-    @Column('text', { nullable: true })
-    similar_professions: string;  // Можна використовувати список як текст або окрему таблицю для зв'язків
-
-    @Column('text', { nullable: true })
-    tags: string;  // Можна використовувати список як текст
-
-    @Column('text', { nullable: true })
-    origin_standard: string;
-
-    @Column('text', { nullable: true })
-    region: string;  // Можна використовувати список як текст
-
-    @Column('text', { nullable: true })
-    embedding_vector: string;
-
-    @Column('timestamp', { default: () => 'CURRENT_TIMESTAMP' })
+    @UpdateDateColumn()
     updated_at: Date;
 
-    @Column('timestamp', { default: () => 'CURRENT_TIMESTAMP' })
-    created_at: Date;
+    @OneToMany(() => ProfessionTranslation, translation => translation.profession, {cascade: true})
+    translations: ProfessionTranslation[];
 }

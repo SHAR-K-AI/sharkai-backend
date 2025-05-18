@@ -1,34 +1,58 @@
-import {Profession} from "../entities/profession.entity";
-import {Repository} from "typeorm";
-import {InjectRepository} from "@nestjs/typeorm";
-import {Injectable} from "@nestjs/common";
+import { Repository } from 'typeorm';
+import { Injectable } from '@nestjs/common';
+import { InjectRepository } from '@nestjs/typeorm';
+
+import { CreateProfessionDto } from '../dto/create-profession.dto';
+import { Profession } from '../entities/profession.entity';
+import {ProfessionTranslation} from "../entities/profession-translation.entity";
 
 @Injectable()
-export class ProfessionService {
+export class ProfessionsService {
     constructor(
         @InjectRepository(Profession)
-        private professionRepo: Repository<Profession>,
+        private readonly repo: Repository<Profession>,
+
+        @InjectRepository(ProfessionTranslation)
+        private readonly translationRepo: Repository<ProfessionTranslation>,
     ) {}
 
-    async create(data: Partial<Profession>): Promise<Profession> {
-        const newProfession = this.professionRepo.create(data);
-        return this.professionRepo.save(newProfession);
+    create(dto: CreateProfessionDto) {
+        const entity = this.repo.create(dto);
+        return this.repo.save(entity);
     }
 
-    async findAll(): Promise<Profession[]> {
-        return this.professionRepo.find();
+    findAll() {
+        return this.repo.find({ relations: ['category', 'translations'] });
     }
 
-    async findOne(id: string): Promise<Profession> {
-        return this.professionRepo.findOne({ where: { id } });
+    findOne(id: number) {
+        return this.repo.findOne({ where: { id }, relations: ['category', 'translations'] });
     }
 
-    async update(id: string, data: Partial<Profession>): Promise<Profession> {
-        await this.professionRepo.update(id, data);
+    async update(id: number, dto: CreateProfessionDto): Promise<Profession> {
+        const { translations, ...rest } = dto;
+
+        // Оновлюємо основні поля професії (без перекладів)
+        await this.repo.update(id, rest);
+
+        if (translations && Array.isArray(translations)) {
+            // Видаляємо старі переклади цієї професії
+            await this.translationRepo.delete({ profession: { id } });
+
+            const newTranslations = translations.map(t => ({
+                ...t,
+                profession: { id },
+            }));
+
+            await this.translationRepo.save(newTranslations);
+        }
+
+        // Повертаємо оновлену професію з перекладами
         return this.findOne(id);
     }
 
-    async remove(id: string): Promise<void> {
-        await this.professionRepo.delete(id);
+
+    delete(id: number) {
+        return this.repo.delete(id);
     }
 }
