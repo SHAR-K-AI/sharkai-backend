@@ -2,14 +2,11 @@
 import {DataSource} from 'typeorm';
 import {Profession} from "./src/entities/profession.entity";
 
-import {CreateProfessions1746134222680} from "./migrations/1746134222680-CreateProfessions";
 import {CreateRolesTable1746472423946} from "./migrations/1746472423946-CreateRolesTable";
 import {CreateUsersTable1746473314580} from "./migrations/1746473314580-CreateUsersTable";
-import {IscoCategory} from "./src/entities/isco-category.entity";
 import {CreateTestsStructure1746719367060} from "./migrations/1746719367060-CreateTestsStructure";
 import {CreateCareerPaths1746730462448} from "./migrations/1746730462448-CreateCareerPaths";
 import {CreateCareerCategory1747084538375} from "./migrations/1747084538375-CreateCareerCategory";
-import {Category} from "./src/entities/career-category.entity";
 import {Test} from './src/entities/test.entity';
 import {TestQuestion} from "./src/entities/test-question.entity";
 import {TestAnswer} from "./src/entities/test-answer.entity";
@@ -48,7 +45,6 @@ import {CreateProfessionRelations1747506708492} from "./src/migrations/174750670
 import {CreateUsersProfessions1747507509155} from "./src/migrations/1747507509155-CreateUsersProfessions";
 import {CreateUsersSkills1747507549607} from "./src/migrations/1747507549607-CreateUsersSkills";
 import {CreateUsersCourses1747507580098} from "./src/migrations/1747507580098-CreateUsersCourses";
-import {CreateCareerForms1747583409812} from "./src/migrations/1747583409812-CreateCareerForms";
 import {Course} from "./src/entities/course.entity";
 import {Skill} from "./src/entities/skill.entity";
 import {ProfessionCategoryTranslation} from "./src/entities/profession-category-translation.entity";
@@ -56,6 +52,26 @@ import {ProfessionTranslation} from "./src/entities/profession-translation.entit
 import {SkillTranslation} from "./src/entities/skill-translation.entity";
 import {CourseTranslation} from "./src/entities/course-translation.entity";
 import {UserCourse} from "./src/entities/users-courses.entity";
+import {CreateEducationLevels1747842500144} from "./src/migrations/1747842500144-CreateEducationLevels";
+import {CreateInterests1747842517265} from "./src/migrations/1747842517265-CreateInterests";
+import {CreatePrinciples1747842530770} from "./src/migrations/1747842530770-CreatePrinciples";
+import {CreateWorkEnvironmentTypes1747842566540} from "./src/migrations/1747842566540-CreateEnvironmentTypes";
+import {CreateEmploymentTypes1747842576639} from "./src/migrations/1747842576639-CreateEmploymentTypes";
+
+import {EducationLevel} from "./src/entities/education-level.entity";
+import {EducationLevelTranslation} from "./src/entities/education-level-translation.entity";
+
+import {EmploymentType} from "./src/entities/employment-type.entity";
+import {EmploymentTypeTranslation} from "./src/entities/employment-type-translation.entity";
+
+import {Interest} from "./src/entities/interest.entity";
+import {InterestTranslation} from "./src/entities/interest-translation.entity";
+
+import {EnvironmentType} from "./src/entities/environment-type.entity";
+import {EnvironmentTypeTranslation} from "./src/entities/environment-type-translation.entity";
+
+import {Principle} from "./src/entities/principle.entity";
+import {PrincipleTranslation} from "./src/entities/principle-translation.entity";
 
 export const AppDataSource = new DataSource({
     type: 'mysql', // Тип бази даних, змінено на MySQL
@@ -85,10 +101,22 @@ export const AppDataSource = new DataSource({
         CourseTranslation,
 
         UserCourse,
-        // IscoCategory,
-        // Profession,
-        // Category,
-        // ProfessionCategory,
+
+        EducationLevel,
+        EducationLevelTranslation,
+
+        EmploymentType,
+        EmploymentTypeTranslation,
+
+        Interest,
+        InterestTranslation,
+
+        Principle,
+        PrincipleTranslation,
+
+        EnvironmentType,
+        EnvironmentTypeTranslation,
+
         // RiasecTest,
         // RiasecQuestion,
 
@@ -119,9 +147,15 @@ export const AppDataSource = new DataSource({
         CreateCourses1747506638598,
         CreateProfessionRelations1747506708492,
         CreateUsersProfessions1747507509155,
-        CreateUsersSkills1747507549607,
         CreateUsersCourses1747507580098,
-        CreateCareerForms1747583409812,
+
+        CreateUsersSkills1747507549607,
+        CreateEducationLevels1747842500144,
+        CreateInterests1747842517265,
+        CreatePrinciples1747842530770,
+        CreateWorkEnvironmentTypes1747842566540,
+        CreateEmploymentTypes1747842576639,
+
         // CreateTestsStructure1746719367060,
         // CreateCareerPaths1746730462448,
         // CreateCareerCategory1747084538375,

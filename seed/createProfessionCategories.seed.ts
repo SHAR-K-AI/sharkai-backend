@@ -1,30 +1,67 @@
-//
-// import {AppDataSource} from "../data-source";
-// import categoriesData from "./data/profession-categories";
-// import {ProfessionCategory} from "../src/entities/profession-category.entity";
-//
-// interface CategoriesData {
-//     nameUa: string;
-//     nameEn: string;
-//     descriptionUa: string;
-//     descriptionEn: string;
-// }
-//
-// export async function createProfessionCategories() {
-//     const repo = AppDataSource.getRepository(ProfessionCategory);
-//     const categories = categoriesData as CategoriesData[];
-//     //
-//     // console.log(categoriesData, "ddddddddd");
-//
-//     for (const category of categories) { // Тепер ітеруємося по categories, а не по categoriesData
-//         const exists = await repo.findOneBy({ nameUa: category.nameUa });
-//         if (!exists) {
-//             await repo.save({
-//                 nameUa: category.nameUa,
-//                 nameEn: category.nameEn,
-//                 descriptionUa: category.descriptionUa,
-//                 descriptionEn: category.descriptionEn,
-//             });
-//         }
-//     }
-// }
+import { AppDataSource } from '../data-source';
+import categories from "./data/profession-categories";
+import { ProfessionCategory } from '../src/entities/profession-category.entity';
+import { ProfessionCategoryTranslation } from '../src/entities/profession-category-translation.entity';
+
+export async function createProfessionCategoriesSeed() {
+    const categoryRepo = AppDataSource.getRepository(ProfessionCategory);
+    const translationRepo = AppDataSource.getRepository(ProfessionCategoryTranslation);
+
+
+    for (const cat of categories) {
+        const category = await categoryRepo.save({
+            id: undefined, // auto-increment
+            level: cat.level,
+            code: cat.code,
+            created_at: new Date(),
+            updated_at: new Date(),
+        });
+
+        await translationRepo.save([
+            {
+                id: undefined,
+                category_id: category.id,
+                languageCode: 'en',
+                field: 'name',
+                value: cat.translations.en.name,
+            },
+            {
+                id: undefined,
+                category_id: category.id,
+                languageCode: 'en',
+                field: 'definition',
+                value: cat.translations.en.definition,
+            },
+            {
+                id: undefined,
+                category_id: category.id,
+                languageCode: 'en',
+                field: 'tasks_include',
+                value: cat.translations.en.tasks_include,
+            },
+            {
+                id: undefined,
+                category_id: category.id,
+                languageCode: 'en',
+                field: 'included_occupations',
+                value: cat.translations.en.included_occupations,
+            },
+            {
+                id: undefined,
+                category_id: category.id,
+                languageCode: 'en',
+                field: 'excluded_occupations',
+                value: cat.translations.en.excluded_occupations,
+            },
+            {
+                id: undefined,
+                category_id: category.id,
+                languageCode: 'en',
+                field: 'notes',
+                value: cat.translations.en.notes,
+            },
+        ]);
+    }
+
+    console.log('Категорії професій з перекладами успішно створені!');
+}

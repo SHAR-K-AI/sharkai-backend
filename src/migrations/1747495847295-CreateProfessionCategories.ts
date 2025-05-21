@@ -3,7 +3,6 @@ import { MigrationInterface, QueryRunner, Table, TableForeignKey } from "typeorm
 export class CreateProfessionCategories1747495847295 implements MigrationInterface {
 
     public async up(queryRunner: QueryRunner): Promise<void> {
-        // Головна таблиця категорій професій
         await queryRunner.createTable(
             new Table({
                 name: "profession_categories",
@@ -14,6 +13,10 @@ export class CreateProfessionCategories1747495847295 implements MigrationInterfa
                         isPrimary: true,
                         isGenerated: true,
                         generationStrategy: "increment",
+                    },
+                    {
+                        name: "level",
+                        type: "int",
                     },
                     {
                         name: "code",
@@ -36,7 +39,6 @@ export class CreateProfessionCategories1747495847295 implements MigrationInterfa
             true
         );
 
-        // Таблиця перекладів для категорій
         await queryRunner.createTable(
             new Table({
                 name: "profession_categories_translations",
@@ -70,7 +72,6 @@ export class CreateProfessionCategories1747495847295 implements MigrationInterfa
             true
         );
 
-        // Foreign key окремо (оскільки в MySQL може бути баг в typeorm, якщо вказувати його у createTable)
         await queryRunner.createForeignKey(
             "profession_categories_translations",
             new TableForeignKey({

@@ -14,7 +14,6 @@ import {UserMbtiResult} from "./user-mbti-result.entity";
 import {Profession} from "./profession.entity";
 import {Skill} from "./skill.entity";
 import {UserCourse} from "./users-courses.entity";
-import {CareerFind} from "./career-find.entity";
 
 @Entity({ name: 'users' })
 export class User {
@@ -73,6 +72,4 @@ export class User {
     @OneToMany(() => UserCourse, userCourse => userCourse.user)
     userCourses: UserCourse[];
 
-    @OneToMany(() => CareerFind, (careerFind) => careerFind.user)
-    careerFinds: CareerFind[];
 }

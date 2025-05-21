@@ -14,6 +14,9 @@ export class ProfessionCategory {
     @PrimaryGeneratedColumn()
     id: number;
 
+    @Column()
+    level: string;
+
     @Column({ unique: true })
     code: string;
 

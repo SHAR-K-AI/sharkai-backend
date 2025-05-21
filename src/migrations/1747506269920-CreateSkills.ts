@@ -2,7 +2,6 @@ import { MigrationInterface, QueryRunner, Table, TableForeignKey } from "typeorm
 
 export class CreateSkills1747506269920 implements MigrationInterface {
     public async up(queryRunner: QueryRunner): Promise<void> {
-        // Таблиця навичок
         await queryRunner.createTable(
             new Table({
                 name: "skills",
@@ -35,7 +34,6 @@ export class CreateSkills1747506269920 implements MigrationInterface {
             true
         );
 
-        // Таблиця перекладів навичок
         await queryRunner.createTable(
             new Table({
                 name: "skills_translations",
@@ -69,7 +67,6 @@ export class CreateSkills1747506269920 implements MigrationInterface {
             true
         );
 
-        // Зовнішній ключ окремо
         await queryRunner.createForeignKey(
             "skills_translations",
             new TableForeignKey({

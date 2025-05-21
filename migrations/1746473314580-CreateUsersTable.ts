@@ -1,8 +1,7 @@
-import {MigrationInterface, QueryRunner, Table, TableForeignKey} from "typeorm";
+import { MigrationInterface, QueryRunner, Table, TableForeignKey } from "typeorm";
 
 export class CreateUsersTable1746473314580 implements MigrationInterface {
     public async up(queryRunner: QueryRunner): Promise<void> {
-        // Таблиця users
         await queryRunner.createTable(
             new Table({
                 name: 'users',
@@ -20,13 +19,9 @@ export class CreateUsersTable1746473314580 implements MigrationInterface {
                         isUnique: true,
                     },
                     {
-                        name: 'name',
-                        type: 'varchar',
-                    },
-                    {
                         name: 'password',
                         type: 'varchar',
-                        isNullable: true, // не обов'язкове для OAuth
+                        isNullable: true,
                     },
                     {
                         name: 'oauth_id',
@@ -36,7 +31,93 @@ export class CreateUsersTable1746473314580 implements MigrationInterface {
                     {
                         name: 'provider',
                         type: 'varchar',
-                        isNullable: true, // 'google', 'facebook', або null для звичайної авторизації
+                        isNullable: true,
+                    },
+                    {
+                        name: 'name',
+                        type: 'varchar',
+                        isNullable: true,
+                    },
+                    {
+                        name: 'first_name',
+                        type: 'varchar',
+                        isNullable: true,
+                    },
+                    {
+                        name: 'last_name',
+                        type: 'varchar',
+                        isNullable: true,
+                    },
+                    {
+                        name: 'nickname',
+                        type: 'varchar',
+                        isNullable: true,
+                    },
+                    {
+                        name: 'position',
+                        type: 'varchar',
+                        isNullable: true,
+                    },
+                    {
+                        name: 'country',
+                        type: 'varchar',
+                        isNullable: true,
+                    },
+                    {
+                        name: 'experience',
+                        type: 'text',
+                        isNullable: true,
+                    },
+                    {
+                        name: 'achievements',
+                        type: 'text',
+                        isNullable: true,
+                    },
+                    {
+                        name: 'expectations',
+                        type: 'text',
+                        isNullable: true,
+                    },
+                    {
+                        name: 'employment_options',
+                        type: 'varchar',
+                        isNullable: true,
+                    },
+                    {
+                        name: 'education',
+                        type: 'text',
+                        isNullable: true,
+                    },
+                    {
+                        name: 'bio',
+                        type: 'text',
+                        isNullable: true,
+                    },
+                    {
+                        name: 'rating',
+                        type: 'float',
+                        isNullable: true,
+                        default: 0,
+                    },
+                    {
+                        name: 'linkedin',
+                        type: 'varchar',
+                        isNullable: true,
+                    },
+                    {
+                        name: 'github',
+                        type: 'varchar',
+                        isNullable: true,
+                    },
+                    {
+                        name: 'twitter',
+                        type: 'varchar',
+                        isNullable: true,
+                    },
+                    {
+                        name: 'facebook',
+                        type: 'varchar',
+                        isNullable: true,
                     },
                     {
                         name: 'created_at',
@@ -53,7 +134,6 @@ export class CreateUsersTable1746473314580 implements MigrationInterface {
             }),
         );
 
-        // Таблиця users_roles (зв’язок many-to-many)
         await queryRunner.createTable(
             new Table({
                 name: 'users_roles',
@@ -72,7 +152,6 @@ export class CreateUsersTable1746473314580 implements MigrationInterface {
             }),
         );
 
-        // Зовнішній ключ: user_id → users.id
         await queryRunner.createForeignKey(
             'users_roles',
             new TableForeignKey({
@@ -83,7 +162,6 @@ export class CreateUsersTable1746473314580 implements MigrationInterface {
             }),
         );
 
-        // Зовнішній ключ: role_id → roles.id
         await queryRunner.createForeignKey(
             'users_roles',
             new TableForeignKey({
