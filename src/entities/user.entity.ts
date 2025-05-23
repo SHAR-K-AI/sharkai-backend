@@ -14,6 +14,11 @@ import {UserMbtiResult} from "./user-mbti-result.entity";
 import {Profession} from "./profession.entity";
 import {Skill} from "./skill.entity";
 import {UserCourse} from "./users-courses.entity";
+import {Interest} from "./interest.entity";
+import {EducationLevel} from "./education-level.entity";
+import {Principle} from "./principle.entity";
+import {EnvironmentType} from "./environment-type.entity";
+import {EmploymentType} from "./employment-type.entity";
 
 @Entity({ name: 'users' })
 export class User {
@@ -26,20 +31,26 @@ export class User {
     @Column()
     name: string;
 
-    @Column({ nullable: true }) // null якщо Google/Facebook
+    // @Column()
+    // dob: string;
+
+    @Column({ nullable: true })
     password: string;
 
-    @Column({ nullable: true }) // наприклад: google ID або facebook ID
+    @Column({ nullable: true })
     oauth_id: string;
 
-    @Column({ nullable: true }) // "google" | "facebook" | null
+    @Column({ nullable: true })
     provider: string;
 
-    @CreateDateColumn({ name: 'created_at' })
-    createdAt: Date;
+    @Column({ nullable: true })
+    education: string;
 
-    @UpdateDateColumn({ name: 'updated_at' })
-    updatedAt: Date;
+    @CreateDateColumn()
+    created_at: Date;
+
+    @UpdateDateColumn()
+    updated_at: Date;
 
     @ManyToMany(() => Role)
     @JoinTable({
@@ -68,6 +79,71 @@ export class User {
         inverseJoinColumn: { name: "skill_id", referencedColumnName: "id" }
     })
     skills: Skill[];
+
+    @ManyToMany(() => Interest, { cascade: true })
+    @JoinTable({
+        name: 'users_interests',
+        joinColumn: { name: 'user_id', referencedColumnName: 'id' },
+        inverseJoinColumn: { name: 'interest_id', referencedColumnName: 'id' },
+    })
+    interests: Interest[];
+
+    @ManyToMany(() => EducationLevel, { cascade: true })
+    @JoinTable({
+        name: 'users_education_levels',
+        joinColumn: {
+            name: 'user_id',
+            referencedColumnName: 'id',
+        },
+        inverseJoinColumn: {
+            name: 'education_level_id',
+            referencedColumnName: 'id',
+        },
+    })
+    educationLevels: EducationLevel[];
+
+    @ManyToMany(() => Principle, { cascade: true })
+    @JoinTable({
+        name: 'users_principles',
+        joinColumn: {
+            name: 'user_id',
+            referencedColumnName: 'id',
+        },
+        inverseJoinColumn: {
+            name: 'principle_id',
+            referencedColumnName: 'id',
+        },
+    })
+    principles: Principle[];
+
+    @ManyToMany(() => EnvironmentType, { cascade: true })
+    @JoinTable({
+        name: 'users_environment_types',
+        joinColumn: {
+            name: 'user_id',
+            referencedColumnName: 'id',
+        },
+        inverseJoinColumn: {
+            name: 'environment_type_id',
+            referencedColumnName: 'id',
+        },
+    })
+    environmentTypes: EnvironmentType[];
+
+    @ManyToMany(() => EmploymentType, { cascade: true })
+    @JoinTable({
+        name: 'users_employment_types',
+        joinColumn: {
+            name: 'user_id',
+            referencedColumnName: 'id',
+        },
+        inverseJoinColumn: {
+            name: 'employment_type_id',
+            referencedColumnName: 'id',
+        },
+    })
+    employmentTypes: EmploymentType[];
+
 
     @OneToMany(() => UserCourse, userCourse => userCourse.user)
     userCourses: UserCourse[];

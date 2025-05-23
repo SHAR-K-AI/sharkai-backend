@@ -1,4 +1,4 @@
-import { IsOptional, IsString, IsEmail, IsNumber } from 'class-validator';
+import {IsOptional, IsString, IsEmail, IsNumber, IsArray, ArrayNotEmpty, ArrayUnique} from 'class-validator';
 
 export class UpdateUserDto {
     @IsOptional()
@@ -20,6 +20,10 @@ export class UpdateUserDto {
     @IsOptional()
     @IsString()
     nickname?: string;
+
+    @IsOptional()
+    @IsString()
+    dob?: string;
 
     @IsOptional()
     @IsString()
@@ -72,4 +76,41 @@ export class UpdateUserDto {
     @IsOptional()
     @IsString()
     facebook?: string;
+
+
+    @IsOptional()
+    @IsArray()
+    @ArrayNotEmpty()
+    @ArrayUnique()
+    employmentTypes?: number[];
+
+    @IsOptional()
+    @IsArray()
+    @ArrayNotEmpty()
+    @ArrayUnique()
+    environmentTypes?: number[];
+
+    @IsOptional()
+    @IsArray()
+    @ArrayNotEmpty()
+    @ArrayUnique()
+    principles?: number[];
+
+    @IsOptional()
+    @IsArray()
+    @ArrayNotEmpty()
+    @ArrayUnique()
+    skills?: number[];
+
+    @IsOptional()
+    @IsArray()
+    @ArrayNotEmpty()
+    @ArrayUnique()
+    interests?: number[];
+
+    @IsOptional()
+    @IsArray()
+    @ArrayNotEmpty()
+    @ArrayUnique()
+    educationLevels?: number[];
 }

@@ -18,24 +18,23 @@ export class UsersController {
 
     @UseGuards(JwtAuthGuard)
     @Get('me')
-    getMe(@GetUser() user: User): User {
-        return user;
+    async getMe(@GetUser() user: User): Promise<User> {
+        return this.usersService.findOne(user.id);
     }
 
     @UseGuards(JwtAuthGuard)
     @Patch('me')
-    async updateOwnProfile(
-        @GetUser('id') userId: number,
+    async updateMe(
+        @GetUser() user: User,
         @Body() dto: UpdateUserDto,
     ): Promise<User> {
-        return this.usersService.updateProfile(userId, dto);
+        return this.usersService.update(user.id, dto);
     }
 
     @UseGuards(JwtAuthGuard)
-    @Get('profile/:id')
-    async getUserProfile(@Param('id') id: number): Promise<User> {
-        return this.usersService.getUserProfile(id);
+    @Get('profile')
+    async getMeData(@GetUser() user: User): Promise<User> {
+        return this.usersService.findOneWithRelations(user.id);
     }
-
 
 }

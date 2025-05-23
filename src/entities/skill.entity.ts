@@ -23,11 +23,12 @@ export class Skill {
     @UpdateDateColumn({ name: "updated_at" })
     updatedAt: Date;
 
+    @ManyToMany(() => User, user => user.skills)
+    users: User[];
+
     @OneToMany(() => SkillTranslation, (translation) => translation.skill, {
         cascade: true,
     })
-    translations: SkillTranslation[];
 
-    @ManyToMany(() => User, user => user.skills)
-    users: User[];
+    translations: SkillTranslation[];
 }

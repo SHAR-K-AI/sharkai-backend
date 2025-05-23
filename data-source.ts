@@ -72,6 +72,11 @@ import {EnvironmentTypeTranslation} from "./src/entities/environment-type-transl
 
 import {Principle} from "./src/entities/principle.entity";
 import {PrincipleTranslation} from "./src/entities/principle-translation.entity";
+import {CreateUsersEducationLevels1747942496358} from "./src/migrations/1747942496358-CreateUsersEducationLevels";
+import {CreateUsersPrinciples1747942528776} from "./src/migrations/1747942528776-CreateUsersPrinciples";
+import {CreateUsersInterests1747942509925} from "./src/migrations/1747942509925-CreateUsersInterests";
+import {CreateUsersEnvironmentTypes1747942550774} from "./src/migrations/1747942550774-CreateUsersEnvironmentTypes";
+import {CreateUsersEmploymentTypes1747942567882} from "./src/migrations/1747942567882-CreateUsersEmploymentTypes";
 
 export const AppDataSource = new DataSource({
     type: 'mysql', // Тип бази даних, змінено на MySQL
@@ -135,8 +140,8 @@ export const AppDataSource = new DataSource({
         UserMbtiResult,
         MbtiTestTranslation,
         MbtiQuestionTranslation,
-    ], // Додано всі сутності
-    synchronize: false, // Вимкнути автоматичне синхронізування
+    ],
+    synchronize: false,
     migrations: [
         // CreateProfessions1746134222680,
         CreateRolesTable1746472423946,
@@ -155,6 +160,12 @@ export const AppDataSource = new DataSource({
         CreatePrinciples1747842530770,
         CreateWorkEnvironmentTypes1747842566540,
         CreateEmploymentTypes1747842576639,
+
+        CreateUsersEducationLevels1747942496358,
+        CreateUsersInterests1747942509925,
+        CreateUsersPrinciples1747942528776,
+        CreateUsersEnvironmentTypes1747942550774,
+        CreateUsersEmploymentTypes1747942567882,
 
         // CreateTestsStructure1746719367060,
         // CreateCareerPaths1746730462448,

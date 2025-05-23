@@ -2,7 +2,6 @@ import {
     Entity, PrimaryGeneratedColumn, Column, ManyToOne, JoinColumn,
 } from 'typeorm';
 import { Principle } from './principle.entity';
-import {Interest} from "./interest.entity";
 
 @Entity('principles_translations')
 export class PrincipleTranslation {
@@ -20,6 +19,6 @@ export class PrincipleTranslation {
 
     @ManyToOne(() => Principle, (principle) => principle.translations, { onDelete: 'CASCADE' })
     @JoinColumn({ name: 'principle_id' })
-    principle: Interest;
+    principle: Principle;
 
 }

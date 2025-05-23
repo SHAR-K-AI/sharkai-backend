@@ -1,7 +1,8 @@
 import {
-    Entity, PrimaryGeneratedColumn, Column, OneToMany, CreateDateColumn, UpdateDateColumn,
+    Entity, PrimaryGeneratedColumn, Column, OneToMany, CreateDateColumn, UpdateDateColumn, ManyToMany,
 } from 'typeorm';
 import { EmploymentTypeTranslation } from './employment-type-translation.entity';
+import {User} from "./user.entity";
 
 @Entity('employment_types')
 export class EmploymentType {
@@ -19,4 +20,7 @@ export class EmploymentType {
 
     @OneToMany(() => EmploymentTypeTranslation, (t) => t.type, { cascade: true })
     translations: EmploymentTypeTranslation[];
+
+    @ManyToMany(() => User, user => user.employmentTypes)
+    users: User[];
 }

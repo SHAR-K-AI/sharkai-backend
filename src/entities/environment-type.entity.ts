@@ -1,7 +1,8 @@
 import {
-    Entity, PrimaryGeneratedColumn, Column, OneToMany, CreateDateColumn, UpdateDateColumn,
+    Entity, PrimaryGeneratedColumn, Column, OneToMany, CreateDateColumn, UpdateDateColumn, ManyToMany,
 } from 'typeorm';
 import { EnvironmentTypeTranslation } from './environment-type-translation.entity';
+import {User} from "./user.entity";
 
 @Entity('environment_types')
 export class EnvironmentType {
@@ -19,4 +20,7 @@ export class EnvironmentType {
 
     @OneToMany(() => EnvironmentTypeTranslation, (t) => t.environment, { cascade: true })
     translations: EnvironmentTypeTranslation[];
+
+    @ManyToMany(() => User, (user) => user.environmentTypes)
+    users: User[];
 }

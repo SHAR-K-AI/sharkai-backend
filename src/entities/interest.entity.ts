@@ -1,7 +1,8 @@
 import {
-    Entity, PrimaryGeneratedColumn, Column, CreateDateColumn, UpdateDateColumn, OneToMany,
+    Entity, PrimaryGeneratedColumn, Column, CreateDateColumn, UpdateDateColumn, OneToMany, ManyToMany,
 } from 'typeorm';
 import { InterestTranslation } from './interest-translation.entity';
+import {User} from "./user.entity";
 
 @Entity('interests')
 export class Interest {
@@ -19,4 +20,7 @@ export class Interest {
 
     @OneToMany(() => InterestTranslation, (t) => t.interest, { cascade: true })
     translations: InterestTranslation[];
+
+    @ManyToMany(() => User, user => user.interests)
+    users: User[];
 }
