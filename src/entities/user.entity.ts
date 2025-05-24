@@ -19,6 +19,7 @@ import {EducationLevel} from "./education-level.entity";
 import {Principle} from "./principle.entity";
 import {EnvironmentType} from "./environment-type.entity";
 import {EmploymentType} from "./employment-type.entity";
+import {LearningPath} from "./learning-path.entity";
 
 @Entity({ name: 'users' })
 export class User {
@@ -147,5 +148,8 @@ export class User {
 
     @OneToMany(() => UserCourse, userCourse => userCourse.user)
     userCourses: UserCourse[];
+
+    @OneToMany(() => LearningPath, path => path.user)
+    learningPaths: LearningPath[];
 
 }

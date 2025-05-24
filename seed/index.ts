@@ -8,6 +8,7 @@ import {createPrinciplesSeed} from "./createPrinciples.seed";
 import {createEducationLevelsSeed} from "./createEducationLevels.seed";
 import {createEmploymentTypeSeed} from "./createEmploymentTypes.seed";
 import {createEnvironmentTypesSeed} from "./createEnvironmentTypes.seed";
+import {createLearningPathSeed} from "./createPath.seed";
 
 // import {createDiscTestWithQuestions} from "./createDistTest.seed";
 // import {createGallupTestWithQuestions} from "./createGallupTest.seed";
@@ -17,15 +18,22 @@ import {createEnvironmentTypesSeed} from "./createEnvironmentTypes.seed";
 AppDataSource.initialize().then(async () => {
     // await createProfessionCategories();
     // await createRiasecTestWithQuestions();
-    await createMbtiTestWithQuestions();
-    await createProfessionCategoriesSeed();
 
-    await createSkillsSeed();
-    await createInterestsSeed();
-    await createPrinciplesSeed();
-    await createEducationLevelsSeed();
-    await createEmploymentTypeSeed();
-    await createEnvironmentTypesSeed();
+
+    //
+    // await createMbtiTestWithQuestions();
+    // await createProfessionCategoriesSeed();
+    //
+    // await createSkillsSeed();
+    // await createInterestsSeed();
+    // await createPrinciplesSeed();
+    // await createEducationLevelsSeed();
+    // await createEmploymentTypeSeed();
+    // await createEnvironmentTypesSeed();
+    await createLearningPathSeed();
+
+
+
     // await createDiscTestWithQuestions();
     // await createGallupTestWithQuestions();
     // await createBigFiveTestWithQuestions();

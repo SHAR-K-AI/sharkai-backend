@@ -77,6 +77,10 @@ import {CreateUsersPrinciples1747942528776} from "./src/migrations/1747942528776
 import {CreateUsersInterests1747942509925} from "./src/migrations/1747942509925-CreateUsersInterests";
 import {CreateUsersEnvironmentTypes1747942550774} from "./src/migrations/1747942550774-CreateUsersEnvironmentTypes";
 import {CreateUsersEmploymentTypes1747942567882} from "./src/migrations/1747942567882-CreateUsersEmploymentTypes";
+import {CreateLearningPath1748023989566} from "./src/migrations/1748023989566-CreateLearningPath";
+import {LearningPath} from "./src/entities/learning-path.entity";
+import {Achievement} from "./src/entities/achievement.entity";
+import {LearningPathDay} from "./src/entities/learning-path-day.entity";
 
 export const AppDataSource = new DataSource({
     type: 'mysql', // Тип бази даних, змінено на MySQL
@@ -121,6 +125,10 @@ export const AppDataSource = new DataSource({
 
         EnvironmentType,
         EnvironmentTypeTranslation,
+
+        Achievement,
+        LearningPath,
+        LearningPathDay,
 
         // RiasecTest,
         // RiasecQuestion,
@@ -167,6 +175,8 @@ export const AppDataSource = new DataSource({
         CreateUsersEnvironmentTypes1747942550774,
         CreateUsersEmploymentTypes1747942567882,
 
+        CreateLearningPath1748023989566,
+
         // CreateTestsStructure1746719367060,
         // CreateCareerPaths1746730462448,
         // CreateCareerCategory1747084538375,
@@ -177,6 +187,6 @@ export const AppDataSource = new DataSource({
         // CreateGallupTestAndQuestions1747324557271,
         // CreateBigFiveTest1747337484999,
         // CreateAsvabTest1747385013673,
-        CreateUserMbtiResults1747390076056
-    ], // Шлях до міграцій
+        CreateUserMbtiResults1747390076056,
+    ],
 });

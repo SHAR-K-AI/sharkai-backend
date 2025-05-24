@@ -52,6 +52,10 @@ export class UsersService {
                 'educationLevels', 'educationLevels.translations',
                 'employmentTypes', 'employmentTypes.translations',
                 'environmentTypes', 'environmentTypes.translations',
+                "learningPaths",
+                "learningPaths.days",
+                // 'userLearningPathDay',
+                // 'userLearningPathDay.learningPathDay',
             ]
         });
     }
