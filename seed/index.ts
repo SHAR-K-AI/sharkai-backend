@@ -8,7 +8,7 @@ import {createPrinciplesSeed} from "./createPrinciples.seed";
 import {createEducationLevelsSeed} from "./createEducationLevels.seed";
 import {createEmploymentTypeSeed} from "./createEmploymentTypes.seed";
 import {createEnvironmentTypesSeed} from "./createEnvironmentTypes.seed";
-import {createLearningPathSeed} from "./createPath.seed";
+import {createLearningPathSeed} from "./createLearningPath.seed";
 
 // import {createDiscTestWithQuestions} from "./createDistTest.seed";
 // import {createGallupTestWithQuestions} from "./createGallupTest.seed";
@@ -20,7 +20,6 @@ AppDataSource.initialize().then(async () => {
     // await createRiasecTestWithQuestions();
 
 
-    //
     // await createMbtiTestWithQuestions();
     // await createProfessionCategoriesSeed();
     //
@@ -31,7 +30,6 @@ AppDataSource.initialize().then(async () => {
     // await createEmploymentTypeSeed();
     // await createEnvironmentTypesSeed();
     await createLearningPathSeed();
-
 
 
     // await createDiscTestWithQuestions();

@@ -24,6 +24,7 @@ import {InterestModule} from "./modules/interest.module";
 import {PrincipleModule} from "./modules/principle.module";
 import {EnvironmentTypesModule} from "./modules/environment-types.module";
 import {EmploymentTypesModule} from "./modules/employment-types.module";
+import {LearningPathModule} from "./modules/learning-path.module";
 
 
 @Module({
@@ -51,6 +52,7 @@ import {EmploymentTypesModule} from "./modules/employment-types.module";
         PrincipleModule,
         EnvironmentTypesModule,
         EmploymentTypesModule,
+        LearningPathModule,
 
         TestsModule,
         RiasecModule,

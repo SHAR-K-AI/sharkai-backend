@@ -2,8 +2,8 @@
 import {DataSource} from 'typeorm';
 import {Profession} from "./src/entities/profession.entity";
 
-import {CreateRolesTable1746472423946} from "./migrations/1746472423946-CreateRolesTable";
-import {CreateUsersTable1746473314580} from "./migrations/1746473314580-CreateUsersTable";
+import {CreateRolesTable1746472423946} from "./src/migrations/1746472423946-CreateRolesTable";
+import {CreateUsersTable1746473314580} from "./src/migrations/1746473314580-CreateUsersTable";
 import {CreateTestsStructure1746719367060} from "./migrations/1746719367060-CreateTestsStructure";
 import {CreateCareerPaths1746730462448} from "./migrations/1746730462448-CreateCareerPaths";
 import {CreateCareerCategory1747084538375} from "./migrations/1747084538375-CreateCareerCategory";
@@ -17,7 +17,7 @@ import {ProfessionCategory} from "./src/entities/profession-category.entity";
 import {CreateRiasecTestAndQuestions1747246746111} from "./migrations/1747246746111-CreateRiasecTestAndQuestions";
 import {RiasecTest} from "./src/entities/riasec-test.entity";
 import {RiasecQuestion} from "./src/entities/riasec-question.entity";
-import {CreateMbtiTest1747303830951} from "./migrations/1747303830951-CreateMbtiTest";
+import {CreateMbtiTest1747303830951} from "./src/migrations/1747303830951-CreateMbtiTest";
 import {MbtiTest} from "./src/entities/mbti-test.entity";
 import {MbtiQuestion} from "./src/entities/mbti-question.entity";
 import {CreateDiscTestAndQuestions1747313369584} from "./migrations/1747313369584-CreateDiscTestAndQuestions";
@@ -33,7 +33,7 @@ import {CreateAsvabTest1747385013673} from "./migrations/1747385013673-CreateAsv
 import {AsvabTest} from "./src/entities/asvab-test.entity";
 import {AsvabQuestion} from "./src/entities/asvab-question.entity";
 import {AsvabAnswer} from "./src/entities/asvab-answer.entity";
-import {CreateUserMbtiResults1747390076056} from "./migrations/1747390076056-CreateUserMbtiResults";
+import {CreateUserMbtiResults1747390076056} from "./src/migrations/1747390076056-CreateUserMbtiResults";
 import {UserMbtiResult} from "./src/entities/user-mbti-result.entity";
 import {MbtiTestTranslation} from "./src/entities/mbti-test-translation.entity";
 import {MbtiQuestionTranslation} from "./src/entities/mbti-question-translation.entity";
@@ -81,6 +81,11 @@ import {CreateLearningPath1748023989566} from "./src/migrations/1748023989566-Cr
 import {LearningPath} from "./src/entities/learning-path.entity";
 import {Achievement} from "./src/entities/achievement.entity";
 import {LearningPathDay} from "./src/entities/learning-path-day.entity";
+import {MbtiOption} from "./src/entities/mbti-option.entity";
+import {MbtiOptionTranslation} from "./src/entities/mbti-option-translation.entity";
+import {AchievementTranslation} from "./src/entities/achievement-translation.entity";
+import {LearningPathTranslation} from "./src/entities/learning-path-translation.entity";
+import {LearningPathDayTranslation} from "./src/entities/learning-path-day-translation.entity";
 
 export const AppDataSource = new DataSource({
     type: 'mysql', // Тип бази даних, змінено на MySQL
@@ -127,8 +132,11 @@ export const AppDataSource = new DataSource({
         EnvironmentTypeTranslation,
 
         Achievement,
+        AchievementTranslation,
         LearningPath,
+        LearningPathTranslation,
         LearningPathDay,
+        LearningPathDayTranslation,
 
         // RiasecTest,
         // RiasecQuestion,
@@ -144,10 +152,12 @@ export const AppDataSource = new DataSource({
         // AsvabAnswer,
 
         MbtiTest,
-        MbtiQuestion,
-        UserMbtiResult,
         MbtiTestTranslation,
+        MbtiQuestion,
         MbtiQuestionTranslation,
+        MbtiOption,
+        MbtiOptionTranslation,
+        UserMbtiResult,
     ],
     synchronize: false,
     migrations: [

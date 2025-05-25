@@ -23,11 +23,7 @@ export class CreateUserMbtiResults1747390076056 implements MigrationInterface {
                     length: '36',
                 },
                 {
-                    name: 'result_type',
-                    type: 'varchar', // Наприклад: "INTJ", "ESFP" тощо
-                },
-                {
-                    name: 'answers',
+                    name: 'result',
                     type: 'json',
                     isNullable: true, // якщо хочеш дозволити зберігати без відповідей
                 },

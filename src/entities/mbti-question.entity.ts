@@ -10,6 +10,7 @@ import {
 } from 'typeorm';
 import { MbtiTest } from './mbti-test.entity';
 import {MbtiQuestionTranslation} from "./mbti-question-translation.entity";
+import {MbtiOption} from "./mbti-option.entity";
 
 export enum MbtiDimension {
     EI = 'EI', // Extroversion - Introversion
@@ -33,13 +34,13 @@ export class MbtiQuestion {
     @Column({ nullable: true, type: 'text' })
     text: string;
 
-    @Column()
-    dimension: string;
-
     @CreateDateColumn()
     created_at: Date;
 
     @OneToMany(() => MbtiQuestionTranslation, t => t.question, { cascade: true })
     translations: MbtiQuestionTranslation[];
+
+    @OneToMany(() => MbtiOption, (o) => o.question)
+    options: MbtiOption[];
 
 }

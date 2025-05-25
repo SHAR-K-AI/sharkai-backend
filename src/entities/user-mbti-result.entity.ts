@@ -26,9 +26,6 @@ export class UserMbtiResult {
     @JoinColumn({ name: 'test_id' })
     test: MbtiTest;
 
-    @Column({ name: 'result_type' })
-    result: string;
-
     @Column({ type: 'json' })
-    answers: Record<string, boolean>;
+    result: Record<string, boolean>;
 }

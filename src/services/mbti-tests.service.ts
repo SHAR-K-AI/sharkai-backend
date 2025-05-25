@@ -22,9 +22,11 @@ export class MbtiTestsService {
     async findFirst(locale?: string): Promise<any> {
         const tests = await this.mbtiTestRepo.find({
             relations: [
+                'translations',
                 'questions',
                 'questions.translations',
-                'translations',
+                'questions.options',
+                'questions.options.translations',
             ],
             order: { id: 'ASC' },
             take: 1,
@@ -108,8 +110,7 @@ export class MbtiTestsService {
         const result = this.resultRepo.create({
             user,
             test,
-            result: 'user',
-            answers: dto.answers,
+            result: dto.result,
         });
 
         return this.resultRepo.save(result);
@@ -143,14 +144,29 @@ export class MbtiTestsService {
             throw new NotFoundException('MBTI Test not found');
         }
 
-        const result = this.resultRepo.create({
-            user,
-            test: test[0],
-            result: 'user',
-            answers: dto.answers,
+        // Шукаємо існуючий результат користувача по тесту
+        let existingResult = await this.resultRepo.findOne({
+            where: {
+                user: { id: user.id },
+                test: { id: test[0].id },
+            },
         });
 
-        return this.resultRepo.save(result);
+        if (existingResult) {
+            // Оновлюємо існуючий результат
+            existingResult.result = dto.result;
+            // Якщо є поле result, можна теж оновити, якщо потрібно
+            // existingResult.result = 'user'; // за потребою
+            return this.resultRepo.save(existingResult);
+        } else {
+            // Створюємо новий результат
+            const newResult = this.resultRepo.create({
+                user,
+                test: test[0],
+                result: dto.result,
+            });
+            return this.resultRepo.save(newResult);
+        }
     }
 
 }

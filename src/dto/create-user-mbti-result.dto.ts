@@ -8,5 +8,5 @@ export class CreateUserMbtiResultDto {
     @IsUUID()
     testId: string;
 
-    answers: Record<string, boolean>;
+    result: Record<string, boolean>;
 }

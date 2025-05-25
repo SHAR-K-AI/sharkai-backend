@@ -1,6 +1,16 @@
-import { Entity, PrimaryGeneratedColumn, Column, CreateDateColumn, UpdateDateColumn, ManyToOne, JoinColumn } from 'typeorm';
+import {
+    Entity,
+    PrimaryGeneratedColumn,
+    Column,
+    CreateDateColumn,
+    UpdateDateColumn,
+    ManyToOne,
+    JoinColumn,
+    OneToMany
+} from 'typeorm';
 import { LearningPath } from './learning-path.entity';
 import {Achievement} from "./achievement.entity";
+import {LearningPathDayTranslation} from "./learning-path-day-translation.entity";
 
 @Entity('learning_path_days')
 export class LearningPathDay {
@@ -13,6 +23,9 @@ export class LearningPathDay {
     @ManyToOne(() => LearningPath, path => path.days, { onDelete: 'CASCADE' })
     @JoinColumn({ name: 'learning_path_id' })
     learningPath: LearningPath;
+
+    @OneToMany(() => LearningPathDayTranslation, translation => translation.learningPathDay, { cascade: true })
+    translations: LearningPathDayTranslation[];
 
     @Column()
     day_number: number;
