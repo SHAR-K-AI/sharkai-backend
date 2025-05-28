@@ -20,15 +20,15 @@ AppDataSource.initialize().then(async () => {
     // await createRiasecTestWithQuestions();
 
 
-    // await createMbtiTestWithQuestions();
-    // await createProfessionCategoriesSeed();
-    //
-    // await createSkillsSeed();
-    // await createInterestsSeed();
-    // await createPrinciplesSeed();
-    // await createEducationLevelsSeed();
-    // await createEmploymentTypeSeed();
-    // await createEnvironmentTypesSeed();
+    await createMbtiTestWithQuestions();
+    await createProfessionCategoriesSeed();
+
+    await createSkillsSeed();
+    await createInterestsSeed();
+    await createPrinciplesSeed();
+    await createEducationLevelsSeed();
+    await createEmploymentTypeSeed();
+    await createEnvironmentTypesSeed();
     await createLearningPathSeed();
 
 

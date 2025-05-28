@@ -32,8 +32,11 @@ export class User {
     @Column()
     name: string;
 
-    // @Column()
-    // dob: string;
+    @Column({ type: 'date', nullable: true })
+    dob: Date;
+
+    @Column({ name: 'refresh_token', nullable: true })
+    refreshToken: string;
 
     @Column({ nullable: true })
     password: string;
@@ -46,6 +49,39 @@ export class User {
 
     @Column({ nullable: true })
     education: string;
+
+    @Column({ nullable: true })
+    first_name?: string;
+
+    @Column({ nullable: true })
+    last_name?: string;
+
+    @Column({ nullable: true })
+    nickname?: string;
+
+    @Column({ nullable: true })
+    position?: string;
+
+    @Column({ nullable: true })
+    country?: string;
+
+    @Column({ nullable: true, type: 'text' })
+    bio?: string;
+
+    @Column({ nullable: true, type: 'float' })
+    rating?: number;
+
+    @Column({ nullable: true })
+    linkedin?: string;
+
+    @Column({ nullable: true })
+    github?: string;
+
+    @Column({ nullable: true })
+    twitter?: string;
+
+    @Column({ nullable: true })
+    facebook?: string;
 
     @CreateDateColumn()
     created_at: Date;

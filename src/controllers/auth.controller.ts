@@ -23,10 +23,14 @@ export class AuthController {
     @UseGuards(LocalAuthGuard)
     @Post('login')
     async login(@Req() req) {
-        console.log('Login request received');
-        console.log('Request user:', req.user);
         return this.authService.login(req.user);
     }
+
+    @Post('refresh')
+    async refresh(@Body('refreshToken') refreshToken: string) {
+        return this.authService.refreshToken(refreshToken);
+    }
+
 
     // Маршрут для Google аутентифікації
     @UseGuards(GoogleAuthGuard)

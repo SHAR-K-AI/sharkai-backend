@@ -14,7 +14,7 @@ import {Module} from "@nestjs/common";
 
 
 @Module({
-    imports: [PassportModule, JwtModule.register({ secret: 'jwt-secret', signOptions: { expiresIn: '60m' } }), UsersModule],
+    imports: [PassportModule, JwtModule.register({ secret: process.env.JWT_ACCESS_SECRET, signOptions: { expiresIn: '60m' } }), UsersModule],
     providers: [AuthService, JwtStrategy, GoogleAuthStrategy, FacebookAuthStrategy, LocalStrategy, RolesGuard],
     controllers: [AuthController],
 })

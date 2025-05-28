@@ -8,7 +8,6 @@ export class TestsController {
 
     @Post()
     create(@Body() createTestDto: CreateTestDto) {
-        console.log(createTestDto, "dddddddddddddddddddddd");
         return this.testsService.create(createTestDto);
     }
 

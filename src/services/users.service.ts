@@ -102,8 +102,6 @@ export class UsersService {
             ],
         });
 
-        console.log(dto, "dtodtodtodto")
-
         if (!user) {
             throw new NotFoundException('User not found');
         }
@@ -153,13 +151,26 @@ export class UsersService {
         Object.assign(user, {
             email: dto.email ?? user.email,
             name: dto.name ?? user.name,
-            // dob: dto.dob ?? user.dob,
+            dob: dto.dob ?? user.dob,
             education: dto.education ?? user.education,
+            first_name: dto.first_name ?? user.first_name,
+            last_name: dto.last_name ?? user.last_name,
+            nickname: dto.nickname ?? user.nickname,
+            position: dto.position ?? user.position,
+            country: dto.country ?? user.country,
+            bio: dto.bio ?? user.bio,
+            rating: dto.rating ?? user.rating,
+            linkedin: dto.linkedin ?? user.linkedin,
+            github: dto.github ?? user.github,
+            twitter: dto.twitter ?? user.twitter,
+            facebook: dto.facebook ?? user.facebook,
         });
 
+        if (dto.refreshToken !== undefined) {
+            user.refreshToken = await bcrypt.hash(dto.refreshToken, 10);
+        }
 
         await this.usersRepository.save(user);
-        console.log(user)
         return user;
     }
 

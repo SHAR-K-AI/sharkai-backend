@@ -18,7 +18,7 @@ export class LearningPath {
     @Column({ name: 'end_date', type: 'date' })
     endDate: string;
 
-    @OneToMany(() => LearningPathDay, day => day.learningPath)
+    @OneToMany(() => LearningPathDay, (day) => day.learningPath, { cascade: true })
     days: LearningPathDay[];
 
     @OneToMany(() => LearningPathTranslation, translation => translation.learningPath, { cascade: true })

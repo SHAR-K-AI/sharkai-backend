@@ -18,7 +18,6 @@ export class ProfessionCategoriesController {
 
     @Post()
     create(@Body() dto: CreateProfessionCategoryDto) {
-        console.log(dto);
         return this.service.create(dto);
     }
 

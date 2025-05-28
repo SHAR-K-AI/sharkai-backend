@@ -14,6 +14,7 @@ export class LearningPathService {
 
     async create(dto: CreateLearningPathDto) {
         const path = this.learningPathRepo.create(dto);
+        console.log(dto, "dto")
         return this.learningPathRepo.save(path);
     }
 

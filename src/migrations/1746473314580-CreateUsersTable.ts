@@ -34,6 +34,11 @@ export class CreateUsersTable1746473314580 implements MigrationInterface {
                         isNullable: true,
                     },
                     {
+                        name: 'refresh_token',
+                        type: 'varchar',
+                        isNullable: true,
+                    },
+                    {
                         name: 'name',
                         type: 'varchar',
                         isNullable: true,
@@ -49,6 +54,11 @@ export class CreateUsersTable1746473314580 implements MigrationInterface {
                         isNullable: true,
                     },
                     {
+                        name: 'dob',
+                        type: 'date',
+                        isNullable: true,
+                    },
+                    {
                         name: 'nickname',
                         type: 'varchar',
                         isNullable: true,
@@ -60,26 +70,6 @@ export class CreateUsersTable1746473314580 implements MigrationInterface {
                     },
                     {
                         name: 'country',
-                        type: 'varchar',
-                        isNullable: true,
-                    },
-                    {
-                        name: 'experience',
-                        type: 'text',
-                        isNullable: true,
-                    },
-                    {
-                        name: 'achievements',
-                        type: 'text',
-                        isNullable: true,
-                    },
-                    {
-                        name: 'expectations',
-                        type: 'text',
-                        isNullable: true,
-                    },
-                    {
-                        name: 'employment_options',
                         type: 'varchar',
                         isNullable: true,
                     },

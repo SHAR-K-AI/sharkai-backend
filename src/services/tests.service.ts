@@ -15,7 +15,6 @@ export class TestsService {
     ) {}
 
     async create(createTestDto: CreateTestDto): Promise<Test> {
-        console.log(1111111111, createTestDto);
 
         // Створення тесту
         const test = this.testRepo.create({

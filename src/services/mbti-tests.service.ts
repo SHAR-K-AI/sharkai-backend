@@ -106,7 +106,6 @@ export class MbtiTestsService {
     async saveUserResult(dto: CreateUserMbtiResultDto): Promise<UserMbtiResult> {
         const user = await this.userRepo.findOneByOrFail({ id: Number(dto.userId) });
         const test = await this.mbtiTestRepo.findOneByOrFail({ id: dto.testId });
-        console.log(dto)
         const result = this.resultRepo.create({
             user,
             test,
@@ -123,7 +122,6 @@ export class MbtiTestsService {
             .leftJoinAndSelect('test.questions', 'question')
             .getMany();
 
-        console.log(test)
 
         // Фільтруємо переклади по мові
         return tests.map(test => ({
