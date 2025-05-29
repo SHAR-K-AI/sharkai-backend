@@ -167,7 +167,7 @@ export class UsersService {
         });
 
         if (dto.refreshToken !== undefined) {
-            user.refreshToken = await bcrypt.hash(dto.refreshToken, 10);
+            user.refreshToken = dto.refreshToken;
         }
 
         await this.usersRepository.save(user);

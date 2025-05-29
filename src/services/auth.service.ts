@@ -12,11 +12,15 @@ export class AuthService {
     ) {}
 
     async getUserById(id: number): Promise<User> {
-        return await this.usersService.findOne(id);
+        return this.usersService.findOne(id);
     }
 
     private async generateTokens(user: User) {
-        const payload = { sub: user.id, email: user.email, roles: user.roles };
+        const payload = {
+            sub: user.id,
+            email: user.email,
+            roles: user.roles,
+        };
 
         const accessToken = this.jwtService.sign(payload, {
             secret: process.env.JWT_ACCESS_SECRET,
@@ -35,26 +39,38 @@ export class AuthService {
         const { accessToken, refreshToken } = await this.generateTokens(user);
 
         const hashedRefreshToken = await bcrypt.hash(refreshToken, 10);
+        console.log("hashedRefreshToken",hashedRefreshToken)
         await this.usersService.update(user.id, { refreshToken: hashedRefreshToken });
 
+        const updatedUser = await this.usersService.findOne(user.id);
+        console.log("updatedUser",updatedUser)
+
         return {
+            expires_in: 15 * 60, // 15 min or 900 sec
             access_token: accessToken,
-            refresh_token: refreshToken,
+            refresh_token: refreshToken
         };
     }
 
-    async refreshToken(refreshToken: string): Promise<{ access_token: string; refresh_token: string }> {
+    async refreshToken(refreshToken: string): Promise<{ access_token: string; refresh_token: string, expires_in: number }> {
         try {
+            if (!refreshToken) {
+                throw new UnauthorizedException('No refresh token provided');
+            }
+
             const payload = this.jwtService.verify(refreshToken, {
                 secret: process.env.JWT_REFRESH_SECRET,
             });
 
             const user = await this.usersService.findOne(payload.sub);
-            if (!user || !user.refreshToken) {
-                throw new UnauthorizedException('Invalid refresh token');
-            }
 
+            if (!user || !user.refreshToken) {
+                throw new UnauthorizedException('Invalid refresh token (user not found or no token stored)');
+            }
+            console.log('Original refreshToken from request:', refreshToken);
+            console.log('Stored hashed refreshToken:', user.refreshToken);
             const isTokenValid = await bcrypt.compare(refreshToken, user.refreshToken);
+
             if (!isTokenValid) {
                 throw new UnauthorizedException('Refresh token does not match');
             }
@@ -62,19 +78,25 @@ export class AuthService {
             const { accessToken, refreshToken: newRefreshToken } = await this.generateTokens(user);
             const hashedNewRefreshToken = await bcrypt.hash(newRefreshToken, 10);
 
-            await this.usersService.update(user.id, { refreshToken: hashedNewRefreshToken });
+            await this.usersService.update(user.id, {
+                refreshToken: hashedNewRefreshToken,
+            });
 
             return {
+                expires_in: 15 * 60, // 15 min or 900 sec
                 access_token: accessToken,
-                refresh_token: newRefreshToken,
+                refresh_token: newRefreshToken
             };
         } catch (err) {
+            console.error('Refresh error:', err?.message || err);
             throw new UnauthorizedException('Refresh token is invalid or expired');
         }
     }
 
     async logout(userId: number): Promise<void> {
-        await this.usersService.update(userId, { refreshToken: null });
+        await this.usersService.update(userId, {
+            refreshToken: null,
+        });
     }
 
     async validateUser(email: string, password: string): Promise<User | null> {
@@ -91,14 +113,14 @@ export class AuthService {
             throw new Error('User already exists');
         }
 
-        return await this.usersService.create(email, password, name);
+        return this.usersService.create(email, password, name);
     }
 
     async validateOAuthUser(oauthId: string, email: string, provider: string): Promise<User | null> {
-        return await this.usersService.findByOAuthId(oauthId, provider);
+        return this.usersService.findByOAuthId(oauthId, provider);
     }
 
     async createOAuthUser(oauthId: string, email: string, name: string, provider: string): Promise<User> {
-        return await this.usersService.createOAuthUser(oauthId, email, name, provider);
+        return this.usersService.createOAuthUser(oauthId, email, name, provider);
     }
 }
