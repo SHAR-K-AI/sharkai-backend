@@ -34,6 +34,7 @@ export class UsersController {
     @UseGuards(JwtAuthGuard)
     @Get('profile')
     async getMeData(@GetUser() user: User): Promise<User> {
+        console.log(111111111111111)
         return this.usersService.findOneWithRelations(user.id);
     }
 

@@ -52,8 +52,8 @@ export class UsersService {
                 'educationLevels', 'educationLevels.translations',
                 'employmentTypes', 'employmentTypes.translations',
                 'environmentTypes', 'environmentTypes.translations',
-                "learningPaths", "learningPaths.translations",
-                "learningPaths.days", "learningPaths.days.translations",
+                // "learningPaths", "learningPaths.translations",
+                // "learningPaths.days", "learningPaths.days.translations",
                 "mbtiResults"
             ]
         });
