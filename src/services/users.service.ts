@@ -1,8 +1,9 @@
 // src/users/users.service.ts
-import {Injectable, NotFoundException} from '@nestjs/common';
-import {InjectRepository} from '@nestjs/typeorm';
-import {In, Repository} from 'typeorm';
 import * as bcrypt from 'bcrypt';
+import {In, Repository} from 'typeorm';
+import {InjectRepository} from '@nestjs/typeorm';
+import {Injectable, NotFoundException} from '@nestjs/common';
+
 import {User} from "../entities/user.entity";
 import {UpdateUserDto} from "../dto/update-user.dto";
 import {EmploymentType} from "../entities/employment-type.entity";

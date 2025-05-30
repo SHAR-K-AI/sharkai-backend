@@ -29,7 +29,7 @@ AppDataSource.initialize().then(async () => {
     await createEducationLevelsSeed();
     await createEmploymentTypeSeed();
     await createEnvironmentTypesSeed();
-    await createLearningPathSeed();
+    // await createLearningPathSeed();
 
 
     // await createDiscTestWithQuestions();

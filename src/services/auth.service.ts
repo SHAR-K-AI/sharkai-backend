@@ -1,15 +1,16 @@
-import { Injectable, UnauthorizedException } from '@nestjs/common';
-import { JwtService } from '@nestjs/jwt';
+import {Injectable, UnauthorizedException} from '@nestjs/common';
+import {JwtService} from '@nestjs/jwt';
 import * as bcrypt from 'bcrypt';
-import { UsersService } from './users.service';
-import { User } from '../entities/user.entity';
+import {UsersService} from './users.service';
+import {User} from '../entities/user.entity';
 
 @Injectable()
 export class AuthService {
     constructor(
         private usersService: UsersService,
         private jwtService: JwtService,
-    ) {}
+    ) {
+    }
 
     async getUserById(id: number): Promise<User> {
         return this.usersService.findOne(id);
@@ -32,27 +33,28 @@ export class AuthService {
             expiresIn: '7d',
         });
 
-        return { accessToken, refreshToken };
+        return {accessToken, refreshToken};
     }
 
     async login(user: User) {
-        const { accessToken, refreshToken } = await this.generateTokens(user);
-
+        const {accessToken, refreshToken} = await this.generateTokens(user);
         const hashedRefreshToken = await bcrypt.hash(refreshToken, 10);
-        console.log("hashedRefreshToken",hashedRefreshToken)
-        await this.usersService.update(user.id, { refreshToken: hashedRefreshToken });
-
-        const updatedUser = await this.usersService.findOne(user.id);
-        console.log("updatedUser",updatedUser)
+        await this.usersService.update(user.id, {refreshToken: hashedRefreshToken});
 
         return {
+            user_id: user.id,
             expires_in: 15 * 60, // 15 min or 900 sec
             access_token: accessToken,
             refresh_token: refreshToken
         };
     }
 
-    async refreshToken(refreshToken: string): Promise<{ access_token: string; refresh_token: string, expires_in: number }> {
+    async refreshToken(refreshToken: string): Promise<{
+        user_id: number,
+        expires_in: number
+        access_token: string,
+        refresh_token: string,
+    }> {
         try {
             if (!refreshToken) {
                 throw new UnauthorizedException('No refresh token provided');
@@ -75,7 +77,7 @@ export class AuthService {
                 throw new UnauthorizedException('Refresh token does not match');
             }
 
-            const { accessToken, refreshToken: newRefreshToken } = await this.generateTokens(user);
+            const {accessToken, refreshToken: newRefreshToken} = await this.generateTokens(user);
             const hashedNewRefreshToken = await bcrypt.hash(newRefreshToken, 10);
 
             await this.usersService.update(user.id, {
@@ -83,6 +85,7 @@ export class AuthService {
             });
 
             return {
+                user_id: user.id,
                 expires_in: 15 * 60, // 15 min or 900 sec
                 access_token: accessToken,
                 refresh_token: newRefreshToken

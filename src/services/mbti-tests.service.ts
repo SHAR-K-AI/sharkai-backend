@@ -131,6 +131,7 @@ export class MbtiTestsService {
     }
 
     async saveResultFirst(dto: CreateUserMbtiResultDto): Promise<UserMbtiResult> {
+        console.log(dto, "dto")
         const user = await this.userRepo.findOneByOrFail({ id: Number(dto.userId) });
 
         const test = await this.mbtiTestRepo.find({
