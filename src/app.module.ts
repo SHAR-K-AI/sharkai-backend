@@ -25,6 +25,7 @@ import {PrincipleModule} from "./modules/principle.module";
 import {EnvironmentTypesModule} from "./modules/environment-types.module";
 import {EmploymentTypesModule} from "./modules/employment-types.module";
 import {LearningPathModule} from "./modules/learning-path.module";
+import {UserTestResultsModule} from "./modules/user-test-results.module";
 
 
 @Module({
@@ -53,12 +54,15 @@ import {LearningPathModule} from "./modules/learning-path.module";
         EnvironmentTypesModule,
         EmploymentTypesModule,
         LearningPathModule,
+        UserTestResultsModule,
 
         TestsModule,
         RiasecModule,
         RiasecQuestionModule,
         MbtiTestsModule,
         MbtiQuestionsModule,
+
+
         DiscModule,
         GallupModule,
         BigFiveModule,

@@ -28,4 +28,7 @@ export class UserMbtiResult {
 
     @Column({ type: 'json' })
     result: Record<string, boolean>;
+
+    @Column({ name: 'created_at' })
+    createdAt: Date;
 }
