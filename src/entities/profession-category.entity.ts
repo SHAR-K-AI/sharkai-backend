@@ -8,6 +8,7 @@ import {
 } from "typeorm";
 import { ProfessionCategoryTranslation } from "./profession-category-translation.entity";
 import {Profession} from "./profession.entity";
+import {Publication} from "./publication.entity";
 
 @Entity("profession_categories")
 export class ProfessionCategory {
@@ -33,4 +34,8 @@ export class ProfessionCategory {
 
     @OneToMany(() => Profession, profession => profession.category)
     professions: Profession[];
+
+    @OneToMany(() => Publication, (pub) => pub.professionCategory)
+    publications: Publication[];
+
 }

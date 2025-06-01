@@ -24,9 +24,9 @@ export class LearningPath {
     @OneToMany(() => LearningPathTranslation, translation => translation.learningPath, { cascade: true })
     translations: LearningPathTranslation[];
 
-    @CreateDateColumn()
-    created_at: Date;
+    @CreateDateColumn({ name: 'created_at' })
+    createdAt: Date;
 
-    @UpdateDateColumn()
-    updated_at: Date;
+    @UpdateDateColumn({ name: 'updated_at' })
+    updatedAt: Date;
 }

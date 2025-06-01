@@ -22,6 +22,16 @@ export class LearningPathService {
         return this.learningPathRepo.find({ relations: ['days', 'days.achievement'] });
     }
 
+    async findLatestByUser(userId: number) {
+        console.log(userId, "userId")
+        return this.learningPathRepo.findOne({
+            where: { user: { id: userId } },
+            order: { createdAt: 'DESC' },
+            relations: ['translations','days',"days.translations", 'days.achievement'], // якщо потрібно
+        });
+    }
+
+
     async findOne(id: string) {
         const path = await this.learningPathRepo.findOne({
             where: { id },

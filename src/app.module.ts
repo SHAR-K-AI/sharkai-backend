@@ -26,6 +26,7 @@ import {EnvironmentTypesModule} from "./modules/environment-types.module";
 import {EmploymentTypesModule} from "./modules/employment-types.module";
 import {LearningPathModule} from "./modules/learning-path.module";
 import {UserTestResultsModule} from "./modules/user-test-results.module";
+import {PublicationsModule} from "./modules/publications.module";
 
 
 @Module({
@@ -55,6 +56,7 @@ import {UserTestResultsModule} from "./modules/user-test-results.module";
         EmploymentTypesModule,
         LearningPathModule,
         UserTestResultsModule,
+        PublicationsModule,
 
         TestsModule,
         RiasecModule,

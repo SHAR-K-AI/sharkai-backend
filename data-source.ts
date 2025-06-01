@@ -86,6 +86,9 @@ import {MbtiOptionTranslation} from "./src/entities/mbti-option-translation.enti
 import {AchievementTranslation} from "./src/entities/achievement-translation.entity";
 import {LearningPathTranslation} from "./src/entities/learning-path-translation.entity";
 import {LearningPathDayTranslation} from "./src/entities/learning-path-day-translation.entity";
+import {CreatePublicationsTable1748776887533} from "./src/migrations/1748776887533-CreatePublicationsTable";
+import {Publication} from "./src/entities/publication.entity";
+import {PublicationTranslation} from "./src/entities/publication-translation.entity";
 
 export const AppDataSource = new DataSource({
     type: 'mysql', // Тип бази даних, змінено на MySQL
@@ -133,10 +136,14 @@ export const AppDataSource = new DataSource({
 
         Achievement,
         AchievementTranslation,
+
         LearningPath,
         LearningPathTranslation,
         LearningPathDay,
         LearningPathDayTranslation,
+
+        Publication,
+        PublicationTranslation,
 
         // RiasecTest,
         // RiasecQuestion,
@@ -186,6 +193,7 @@ export const AppDataSource = new DataSource({
         CreateUsersEmploymentTypes1747942567882,
 
         CreateLearningPath1748023989566,
+        CreatePublicationsTable1748776887533,
 
         // CreateTestsStructure1746719367060,
         // CreateCareerPaths1746730462448,

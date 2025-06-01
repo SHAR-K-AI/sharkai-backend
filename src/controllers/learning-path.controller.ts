@@ -1,8 +1,12 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
+import { Controller, Get, Post, Body, Param, Patch, Delete, Req, UseGuards } from '@nestjs/common';
+import { Request } from 'express';
+import {JwtAuthGuard} from "../auth/jwt-auth.guard";
 import {LearningPathService} from "../services/learning-path.service";
 import {CreateLearningPathDto} from "../dto/create-learning-path.dto";
 import {UpdateLearningPathDto} from "../dto/update-learning-path.dto";
 
+
+@UseGuards(JwtAuthGuard)
 @Controller('learning-paths')
 export class LearningPathController {
     constructor(private readonly learningPathService: LearningPathService) {}
@@ -15,6 +19,12 @@ export class LearningPathController {
     @Get()
     findAll() {
         return this.learningPathService.findAll();
+    }
+
+    @Get('latest')
+    async getLatest(@Req() req: Request) {
+        const userId = req.user['id'];
+        return this.learningPathService.findLatestByUser(userId);
     }
 
     @Get(':id')
