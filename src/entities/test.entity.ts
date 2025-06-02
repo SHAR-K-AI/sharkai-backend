@@ -1,35 +1,27 @@
-import {Entity, PrimaryGeneratedColumn, Column, OneToMany, ManyToOne, JoinColumn} from 'typeorm';
+import {
+    Entity,
+    PrimaryColumn,
+    CreateDateColumn,
+    UpdateDateColumn,
+    OneToMany,
+} from 'typeorm';
+import { TestTranslation } from './test-translation.entity';
 import { TestQuestion } from './test-question.entity';
-import {TestLogic} from "./test-logic.entity";
-import {Category} from "./career-category.entity";
 
 @Entity('tests')
 export class Test {
-    @PrimaryGeneratedColumn({ type: 'bigint', unsigned: true })
-    test_id: number;
+    @PrimaryColumn({ type: 'varchar', length: 36 })
+    id: string;
 
-    @Column({ type: 'varchar', length: 255 })
-    name: string;
+    @CreateDateColumn({ name: 'created_at' })
+    createdAt: Date;
 
-    @Column({ type: 'text', nullable: true })
-    description: string;
+    @UpdateDateColumn({ name: 'updated_at' })
+    updatedAt: Date;
 
-    @Column({ type: 'varchar', length: 50 })
-    test_type: 'personality' | 'interest' | 'skills';
+    @OneToMany(() => TestTranslation, translation => translation.test, { cascade: true })
+    translations: TestTranslation[];
 
-    @Column({ type: 'timestamp', default: () => 'CURRENT_TIMESTAMP' })
-    created_at: Date;
-
-    @OneToMany(() => TestQuestion, question => question.test)
+    @OneToMany(() => TestQuestion, question => question.test, { cascade: true })
     questions: TestQuestion[];
-
-    @OneToMany(() => TestLogic, logic => logic.test)
-    logic: TestLogic[];
-
-    @ManyToOne(() => Category, (category) => category.tests)
-    @JoinColumn({ name: "category_id" })
-    category: Category;
-
-    @Column({ type: "varchar", length: 100 })
-    category_code: string;
 }

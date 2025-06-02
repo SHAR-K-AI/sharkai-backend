@@ -1,26 +1,71 @@
-// create-test.dto.ts
-import { IsEnum, IsOptional, IsString, ValidateNested } from 'class-validator';
+import { IsString, IsOptional, IsArray, ValidateNested, IsInt, Min, MaxLength } from 'class-validator';
 import { Type } from 'class-transformer';
-import { CreateQuestionDto } from './create-question.dto';
 
-export enum TestType {
-    PERSONALITY = 'personality',
-    INTEREST = 'interest',
-    SKILLS = 'skills',
-}
-
-export class CreateTestDto {
+class TranslationDto {
     @IsString()
-    name: string;
+    language: string;
+
+    @IsString()
+    @MaxLength(255)
+    title: string;
 
     @IsOptional()
     @IsString()
     description?: string;
+}
 
-    @IsEnum(TestType)
-    test_type: TestType;
+class QuestionTranslationDto {
+    @IsString()
+    language: string;
 
+    @IsString()
+    text: string;
+}
+
+class AnswerOptionTranslationDto {
+    @IsString()
+    language: string;
+
+    @IsString()
+    text: string;
+}
+
+class AnswerOptionDto {
+    @IsInt()
+    order: number;
+
+    @IsString()
+    value: string;
+
+    @IsArray()
     @ValidateNested({ each: true })
-    @Type(() => CreateQuestionDto)
-    questions: CreateQuestionDto[];
+    @Type(() => AnswerOptionTranslationDto)
+    translations: AnswerOptionTranslationDto[];
+}
+
+class QuestionDto {
+    @IsInt()
+    order: number;
+
+    @IsArray()
+    @ValidateNested({ each: true })
+    @Type(() => QuestionTranslationDto)
+    translations: QuestionTranslationDto[];
+
+    @IsArray()
+    @ValidateNested({ each: true })
+    @Type(() => AnswerOptionDto)
+    answerOptions: AnswerOptionDto[];
+}
+
+export class CreateTestDto {
+    @IsArray()
+    @ValidateNested({ each: true })
+    @Type(() => TranslationDto)
+    translations: TranslationDto[];
+
+    @IsArray()
+    @ValidateNested({ each: true })
+    @Type(() => QuestionDto)
+    questions: QuestionDto[];
 }

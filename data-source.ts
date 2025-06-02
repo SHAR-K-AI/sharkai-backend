@@ -7,10 +7,7 @@ import {CreateUsersTable1746473314580} from "./src/migrations/1746473314580-Crea
 import {CreateTestsStructure1746719367060} from "./migrations/1746719367060-CreateTestsStructure";
 import {CreateCareerPaths1746730462448} from "./migrations/1746730462448-CreateCareerPaths";
 import {CreateCareerCategory1747084538375} from "./migrations/1747084538375-CreateCareerCategory";
-import {Test} from './src/entities/test.entity';
-import {TestQuestion} from "./src/entities/test-question.entity";
-import {TestAnswer} from "./src/entities/test-answer.entity";
-import {TestLogic} from "./src/entities/test-logic.entity";
+
 import {User} from "./src/entities/user.entity";
 import {Role} from "./src/entities/roles.entity";
 import {ProfessionCategory} from "./src/entities/profession-category.entity";
@@ -89,6 +86,7 @@ import {LearningPathDayTranslation} from "./src/entities/learning-path-day-trans
 import {CreatePublicationsTable1748776887533} from "./src/migrations/1748776887533-CreatePublicationsTable";
 import {Publication} from "./src/entities/publication.entity";
 import {PublicationTranslation} from "./src/entities/publication-translation.entity";
+import {CreateTests1748798429333} from "./src/migrations/1748798429333-CreateTests";
 
 export const AppDataSource = new DataSource({
     type: 'mysql', // Тип бази даних, змінено на MySQL
@@ -194,11 +192,8 @@ export const AppDataSource = new DataSource({
 
         CreateLearningPath1748023989566,
         CreatePublicationsTable1748776887533,
+        CreateTests1748798429333,
 
-        // CreateTestsStructure1746719367060,
-        // CreateCareerPaths1746730462448,
-        // CreateCareerCategory1747084538375,
-        // CreateProfessionCategories1747225128827,
         // CreateRiasecTestAndQuestions1747246746111,
         CreateMbtiTest1747303830951,
         // CreateDiscTestAndQuestions1747313369584,

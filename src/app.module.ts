@@ -5,7 +5,6 @@ import {AppService} from './app.service';
 import {AuthModule} from "./modules/auth.module";
 import {UsersModule} from "./modules/users.module";
 import {ConfigModule} from '@nestjs/config';
-import {TestsModule} from "./modules/tests.module";
 import {ProfessionCategoriesModule} from "./modules/profession-categories.module";
 import {RiasecModule} from "./modules/riasec.module";
 import {RiasecQuestionModule} from "./modules/riasec-question.module";
@@ -27,6 +26,7 @@ import {EmploymentTypesModule} from "./modules/employment-types.module";
 import {LearningPathModule} from "./modules/learning-path.module";
 import {UserTestResultsModule} from "./modules/user-test-results.module";
 import {PublicationsModule} from "./modules/publications.module";
+import {TestsModule} from "./modules/tests.module";
 
 
 @Module({
@@ -56,9 +56,10 @@ import {PublicationsModule} from "./modules/publications.module";
         EmploymentTypesModule,
         LearningPathModule,
         UserTestResultsModule,
-        PublicationsModule,
 
+        PublicationsModule,
         TestsModule,
+
         RiasecModule,
         RiasecQuestionModule,
         MbtiTestsModule,

@@ -1,28 +1,33 @@
-import { Entity, PrimaryGeneratedColumn, Column, ManyToOne, OneToMany, JoinColumn } from 'typeorm';
-import { Test } from './test.entity';
-import { TestAnswer } from './test-answer.entity';
+import {
+    Entity, PrimaryColumn, Column, ManyToOne, JoinColumn,
+    CreateDateColumn, UpdateDateColumn, OneToMany
+} from 'typeorm';
+import { TestAnswerOption } from './test-answer-option.entity';
+import {TestQuestionTranslation} from "./test-question-translation.entity";
+import {Test} from "./test.entity";
+
 
 @Entity('test_questions')
 export class TestQuestion {
-    @PrimaryGeneratedColumn({ type: 'bigint', unsigned: true })
-    question_id: number;
+    @PrimaryColumn({ type: 'varchar', length: 36 })
+    id: string;
 
-    @Column({ type: 'text' })
-    question_text: string;
-
-    @Column({ type: 'varchar', length: 50 })
-    question_type: 'single_choice' | 'multiple_choice' | 'scale' | 'text_input';
-
-    @Column({ type: 'int', default: 0 })
+    @Column({ name: 'order', type: 'int' })
     order: number;
 
-    @Column({ type: 'bigint', unsigned: true })
-    test_id: number;
+    @CreateDateColumn({ name: 'created_at' })
+    createdAt: Date;
+
+    @UpdateDateColumn({ name: 'updated_at' })
+    updatedAt: Date;
 
     @ManyToOne(() => Test, test => test.questions, { onDelete: 'CASCADE' })
     @JoinColumn({ name: 'test_id' })
     test: Test;
 
-    @OneToMany(() => TestAnswer, answer => answer.question)
-    answers: TestAnswer[];
+    @OneToMany(() => TestQuestionTranslation, t => t.question, { cascade: true })
+    translations: TestQuestionTranslation[];
+
+    @OneToMany(() => TestAnswerOption, option => option.question, { cascade: true })
+    options: TestAnswerOption[];
 }

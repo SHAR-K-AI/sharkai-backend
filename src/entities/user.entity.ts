@@ -6,10 +6,9 @@ import {
     JoinTable,
     CreateDateColumn,
     UpdateDateColumn,
-    ManyToOne, JoinColumn, OneToMany,
+     OneToMany,
 } from 'typeorm';
 import { Role } from './roles.entity';
-import { Category } from './career-category.entity';
 import {UserMbtiResult} from "./user-mbti-result.entity";
 import {Profession} from "./profession.entity";
 import {Skill} from "./skill.entity";
