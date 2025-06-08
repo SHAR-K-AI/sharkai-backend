@@ -1,6 +1,6 @@
 import { AppDataSource } from '../data-source';
-import {EnvironmentType} from "../src/entities/environment-type.entity";
-import {EnvironmentTypeTranslation} from "../src/entities/environment-type-translation.entity";
+import { EnvironmentType } from '../src/entities/environment-type.entity';
+import { EnvironmentTypeTranslation } from '../src/entities/environment-type-translation.entity';
 
 export async function createEnvironmentTypesSeed() {
     const valueRepo = AppDataSource.getRepository(EnvironmentType);
@@ -96,5 +96,5 @@ export async function createEnvironmentTypesSeed() {
         await translationRepo.save(translations);
     }
 
-    console.log('✅ Сід робочих цінностей створено!');
+    console.log('✅ Сід типів середовища створено!');
 }

@@ -8,7 +8,7 @@ import {TestQuestion} from "./test-question.entity";
 
 @Entity('test_answer_options')
 export class TestAnswerOption {
-    @PrimaryColumn({ type: 'varchar', length: 36 })
+    @PrimaryColumn({ type: 'varchar' })
     id: string;
 
     @Column()

@@ -11,14 +11,20 @@ export class EducationLevelTranslation {
     @Column({name: 'language_code', length: 5})
     languageCode: string;
 
+    @ManyToOne(() => EducationLevel, educationLevel => educationLevel.translations, {
+        onDelete: 'CASCADE',
+        onUpdate: 'CASCADE',
+    })
+    @JoinColumn({ name: 'education_level_id' })
+    educationLevel: EducationLevel;
+
+    @Column()
+    education_level_id: number;
+
     @Column()
     field: string;
 
     @Column('text')
     value: string;
-
-    @ManyToOne(() => EducationLevel, (level) => level.translations, { onDelete: 'CASCADE' })
-    @JoinColumn({ name: 'education_level_id' })
-    level: EducationLevel;
 
 }

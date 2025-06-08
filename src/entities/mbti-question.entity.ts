@@ -24,7 +24,7 @@ export class MbtiQuestion {
     @PrimaryGeneratedColumn('uuid')
     id: string;
 
-    @Column('char', { length: 36 })
+    @Column('char')
     test_id: string;
 
     @ManyToOne(() => MbtiTest, test => test.questions, { onDelete: 'CASCADE' })

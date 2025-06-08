@@ -9,10 +9,8 @@ export class CreateProfessions1747495954719 implements MigrationInterface {
                 columns: [
                     {
                         name: "id",
-                        type: "int",
+                        type: "serial", // автоінкремент PostgreSQL
                         isPrimary: true,
-                        isGenerated: true,
-                        generationStrategy: "increment",
                     },
                     {
                         name: "category_id",
@@ -21,100 +19,122 @@ export class CreateProfessions1747495954719 implements MigrationInterface {
                     },
                     {
                         name: "mbti",
-                        type: "json",
+                        type: "jsonb",
                         isNullable: true,
+                        comment: "Результати MBTI для професії",
                     },
                     {
                         name: "riasec",
-                        type: "json",
+                        type: "jsonb",
                         isNullable: true,
+                        comment: "RIASEC профіль",
                     },
                     {
                         name: "gallup",
-                        type: "json",
+                        type: "jsonb",
                         isNullable: true,
+                        comment: "Gallup профіль",
                     },
                     {
                         name: "bigFiveIdeal",
-                        type: "json",
+                        type: "jsonb",
                         isNullable: true,
+                        comment: "Ідеальний Big Five профіль",
                     },
                     {
                         name: "asvab",
-                        type: "json",
+                        type: "jsonb",
                         isNullable: true,
+                        comment: "ASVAB дані",
                     },
                     {
                         name: "salary_range",
-                        type: "json",
+                        type: "jsonb",
                         isNullable: true,
+                        comment: "Діапазон зарплати, наприклад, {min: number, max: number}",
                     },
                     {
                         name: "demand",
                         type: "int",
+                        isNullable: false,
                         default: 0,
+                        comment: "Попит на професію",
                     },
                     {
                         name: "created_at",
-                        type: "timestamp",
-                        default: "CURRENT_TIMESTAMP",
+                        type: "timestamptz",
+                        default: "now()",
+                        isNullable: false,
                     },
                     {
                         name: "updated_at",
-                        type: "timestamp",
-                        default: "CURRENT_TIMESTAMP",
-                        onUpdate: "CURRENT_TIMESTAMP",
+                        type: "timestamptz",
+                        default: "now()",
+                        isNullable: false,
+                        // Для оновлення updated_at рекомендується тригер або ручне оновлення в коді
                     },
                 ],
             }),
             true
         );
 
-        // Додаємо зовнішній ключ окремо
+        // Зовнішній ключ для category_id
         await queryRunner.createForeignKey(
             "professions",
             new TableForeignKey({
                 columnNames: ["category_id"],
                 referencedTableName: "profession_categories",
                 referencedColumnNames: ["id"],
-                onDelete: "SET NULL",
+                onDelete: "SET NULL", // При видаленні категорії поле category_id буде null
+                onUpdate: "CASCADE",
             })
         );
 
-        // Таблиця перекладів для професій
+        // Таблиця перекладів професій
         await queryRunner.createTable(
             new Table({
                 name: "professions_translations",
                 columns: [
                     {
                         name: "id",
-                        type: "int",
+                        type: "serial",
                         isPrimary: true,
-                        isGenerated: true,
-                        generationStrategy: "increment",
                     },
                     {
                         name: "profession_id",
                         type: "int",
+                        isNullable: false,
                     },
                     {
                         name: "language_code",
                         type: "varchar",
                         length: "5",
+                        isNullable: false,
                     },
                     {
                         name: "field",
                         type: "varchar",
+                        isNullable: false,
+                        comment: "Назва перекладного поля (наприклад, title, description)",
                     },
                     {
                         name: "value",
                         type: "text",
+                        isNullable: false,
+                        comment: "Перекладене значення",
+                    },
+                ],
+                uniques: [
+                    {
+                        name: "uq_profession_translation_unique",
+                        columnNames: ["profession_id", "language_code", "field"],
                     },
                 ],
             }),
             true
         );
 
+        // FK для професії у таблиці перекладів
         await queryRunner.createForeignKey(
             "professions_translations",
             new TableForeignKey({
@@ -122,11 +142,25 @@ export class CreateProfessions1747495954719 implements MigrationInterface {
                 referencedTableName: "professions",
                 referencedColumnNames: ["id"],
                 onDelete: "CASCADE",
+                onUpdate: "CASCADE",
             })
         );
     }
 
     public async down(queryRunner: QueryRunner): Promise<void> {
+        // Видалення FK перед таблицями для уникнення помилок
+        const translationTable = await queryRunner.getTable("professions_translations");
+        if (translationTable) {
+            const fk = translationTable.foreignKeys.find(fk => fk.columnNames.indexOf("profession_id") !== -1);
+            if (fk) await queryRunner.dropForeignKey("professions_translations", fk);
+        }
+
+        const professionTable = await queryRunner.getTable("professions");
+        if (professionTable) {
+            const fk = professionTable.foreignKeys.find(fk => fk.columnNames.indexOf("category_id") !== -1);
+            if (fk) await queryRunner.dropForeignKey("professions", fk);
+        }
+
         await queryRunner.dropTable("professions_translations");
         await queryRunner.dropTable("professions");
     }

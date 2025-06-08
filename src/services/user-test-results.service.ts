@@ -1,6 +1,6 @@
-import { Injectable } from '@nestjs/common';
-import { InjectRepository } from '@nestjs/typeorm';
-import { Repository } from 'typeorm';
+import {Injectable} from '@nestjs/common';
+import {InjectRepository} from '@nestjs/typeorm';
+import {Repository} from 'typeorm';
 
 // import { UserDiscResult } from '@/disc-results/entities/user-disc-result.entity';
 // import { UserGallupResult } from '@/gallup-results/entities/user-gallup-result.entity';
@@ -14,7 +14,6 @@ export class UserTestResultsService {
     constructor(
         @InjectRepository(UserMbtiResult)
         private mbtiRepo: Repository<UserMbtiResult>,
-
         // @InjectRepository(UserDiscResult)
         // private discRepo: Repository<UserDiscResult>,
         //
@@ -26,20 +25,27 @@ export class UserTestResultsService {
         //
         // @InjectRepository(UserAsvabResult)
         // private asvabRepo: Repository<UserAsvabResult>,
-    ) {}
+    ) {
+    }
 
     async getAllResultsForUser(user: User) {
         const [mbti, /*disc, gallup, bigFive, asvab*/] = await Promise.all([
-            this.mbtiRepo.find({ where: { user }, relations: ['test'], order: { createdAt: 'DESC' } }),
+            this.mbtiRepo.find({
+                where: {user: {id: user.id}},
+                relations: ['test'],
+                order: {createdAt: 'DESC'}
+            }),
             // this.discRepo.find({ where: { user }, relations: ['test'], order: { createdAt: 'DESC' } }),
             // this.gallupRepo.find({ where: { user }, relations: ['test'], order: { createdAt: 'DESC' } }),
             // this.bigFiveRepo.find({ where: { user }, relations: ['test'], order: { createdAt: 'DESC' } }),
             // this.asvabRepo.find({ where: { user }, relations: ['test'], order: { createdAt: 'DESC' } }),
         ]);
 
+        console.log(mbti, user, "mbtimbtimbtimbti")
+
         return {
             mbti,
-            // disc,
+            // disc,,
             // gallup,
             // bigFive,
             // asvab,

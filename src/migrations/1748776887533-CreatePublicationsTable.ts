@@ -1,7 +1,12 @@
-import {MigrationInterface, QueryRunner, Table, TableForeignKey} from "typeorm";
+import {
+    MigrationInterface,
+    QueryRunner,
+    Table,
+    TableForeignKey,
+    TableUnique,
+} from "typeorm";
 
 export class CreatePublicationsTable1748776887533 implements MigrationInterface {
-
     public async up(queryRunner: QueryRunner): Promise<void> {
         await queryRunner.createTable(
             new Table({
@@ -17,6 +22,7 @@ export class CreatePublicationsTable1748776887533 implements MigrationInterface 
                     {
                         name: "slug",
                         type: "varchar",
+                        length: "255",
                         isUnique: true,
                     },
                     {
@@ -26,23 +32,22 @@ export class CreatePublicationsTable1748776887533 implements MigrationInterface 
                     },
                     {
                         name: "published_at",
-                        type: "timestamp",
+                        type: "timestamptz",
                         isNullable: true,
                     },
                     {
                         name: "created_at",
-                        type: "timestamp",
-                        default: "CURRENT_TIMESTAMP",
+                        type: "timestamptz",
+                        default: "now()",
                     },
                     {
                         name: "updated_at",
-                        type: "timestamp",
-                        default: "CURRENT_TIMESTAMP",
-                        onUpdate: "CURRENT_TIMESTAMP",
+                        type: "timestamptz",
+                        default: "now()",
+                        onUpdate: "now()",
                     },
                 ],
-            }),
-            true
+            })
         );
 
         await queryRunner.createForeignKey(
@@ -79,14 +84,14 @@ export class CreatePublicationsTable1748776887533 implements MigrationInterface 
                     {
                         name: "field",
                         type: "varchar",
+                        length: "100",
                     },
                     {
                         name: "value",
                         type: "text",
                     },
                 ],
-            }),
-            true
+            })
         );
 
         await queryRunner.createForeignKey(
@@ -98,11 +103,39 @@ export class CreatePublicationsTable1748776887533 implements MigrationInterface 
                 onDelete: "CASCADE",
             })
         );
+
+        await queryRunner.createUniqueConstraint(
+            "publications_translations",
+            new TableUnique({
+                name: "UQ_publication_language_field",
+                columnNames: ["publication_id", "language_code", "field"],
+            })
+        );
     }
 
     public async down(queryRunner: QueryRunner): Promise<void> {
+        const translationsTable = await queryRunner.getTable("publications_translations");
+        if (translationsTable) {
+            const uniqueConstraint = translationsTable.uniques.find(
+                (uq) => uq.name === "UQ_publication_language_field"
+            );
+            if (uniqueConstraint) {
+                await queryRunner.dropUniqueConstraint("publications_translations", uniqueConstraint);
+            }
+
+            for (const fk of translationsTable.foreignKeys) {
+                await queryRunner.dropForeignKey("publications_translations", fk);
+            }
+        }
+
+        const publicationsTable = await queryRunner.getTable("publications");
+        if (publicationsTable) {
+            for (const fk of publicationsTable.foreignKeys) {
+                await queryRunner.dropForeignKey("publications", fk);
+            }
+        }
+
         await queryRunner.dropTable("publications_translations");
         await queryRunner.dropTable("publications");
     }
-
 }

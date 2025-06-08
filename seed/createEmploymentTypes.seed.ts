@@ -1,6 +1,6 @@
 import { AppDataSource } from '../data-source';
-import {EmploymentType} from "../src/entities/employment-type.entity";
-import {EmploymentTypeTranslation} from "../src/entities/employment-type-translation.entity";
+import { EmploymentType } from '../src/entities/employment-type.entity';
+import { EmploymentTypeTranslation } from '../src/entities/employment-type-translation.entity';
 
 export async function createEmploymentTypeSeed() {
     const valueRepo = AppDataSource.getRepository(EmploymentType);

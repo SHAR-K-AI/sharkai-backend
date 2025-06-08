@@ -7,10 +7,11 @@ import {
 } from 'typeorm';
 import { TestTranslation } from './test-translation.entity';
 import { TestQuestion } from './test-question.entity';
+import {UserTestPassage} from "./user-test-passage.entity";
 
 @Entity('tests')
 export class Test {
-    @PrimaryColumn({ type: 'varchar', length: 36 })
+    @PrimaryColumn({ type: 'varchar' })
     id: string;
 
     @CreateDateColumn({ name: 'created_at' })
@@ -24,4 +25,7 @@ export class Test {
 
     @OneToMany(() => TestQuestion, question => question.test, { cascade: true })
     questions: TestQuestion[];
+
+    @OneToMany(() => UserTestPassage, (passage) => passage.test)
+    userPassages: UserTestPassage[];
 }

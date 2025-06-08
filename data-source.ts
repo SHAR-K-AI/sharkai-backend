@@ -1,35 +1,18 @@
-// data-source.ts
 import {DataSource} from 'typeorm';
 import {Profession} from "./src/entities/profession.entity";
 
 import {CreateRolesTable1746472423946} from "./src/migrations/1746472423946-CreateRolesTable";
 import {CreateUsersTable1746473314580} from "./src/migrations/1746473314580-CreateUsersTable";
-import {CreateTestsStructure1746719367060} from "./migrations/1746719367060-CreateTestsStructure";
-import {CreateCareerPaths1746730462448} from "./migrations/1746730462448-CreateCareerPaths";
-import {CreateCareerCategory1747084538375} from "./migrations/1747084538375-CreateCareerCategory";
+
 
 import {User} from "./src/entities/user.entity";
 import {Role} from "./src/entities/roles.entity";
 import {ProfessionCategory} from "./src/entities/profession-category.entity";
-import {CreateRiasecTestAndQuestions1747246746111} from "./migrations/1747246746111-CreateRiasecTestAndQuestions";
-import {RiasecTest} from "./src/entities/riasec-test.entity";
-import {RiasecQuestion} from "./src/entities/riasec-question.entity";
+
 import {CreateMbtiTest1747303830951} from "./src/migrations/1747303830951-CreateMbtiTest";
 import {MbtiTest} from "./src/entities/mbti-test.entity";
 import {MbtiQuestion} from "./src/entities/mbti-question.entity";
-import {CreateDiscTestAndQuestions1747313369584} from "./migrations/1747313369584-CreateDiscTestAndQuestions";
-import {DiscTest} from "./src/entities/disc-test.entity";
-import {DiscQuestion} from "./src/entities/disc-question.entity";
-import {CreateGallupTestAndQuestions1747324557271} from "./migrations/1747324557271-CreateGallupTestAndQuestions";
-import {GallupTest} from "./src/entities/gallup-test.entity";
-import {GallupQuestion} from "./src/entities/gallup-question.entity";
-import {CreateBigFiveTest1747337484999} from "./migrations/1747337484999-CreateBigFiveTest";
-import {BigFiveTest} from "./src/entities/big-five-test.entity";
-import {BigFiveQuestion} from "./src/entities/big-five-question.entity";
-import {CreateAsvabTest1747385013673} from "./migrations/1747385013673-CreateAsvabTest";
-import {AsvabTest} from "./src/entities/asvab-test.entity";
-import {AsvabQuestion} from "./src/entities/asvab-question.entity";
-import {AsvabAnswer} from "./src/entities/asvab-answer.entity";
+
 import {CreateUserMbtiResults1747390076056} from "./src/migrations/1747390076056-CreateUserMbtiResults";
 import {UserMbtiResult} from "./src/entities/user-mbti-result.entity";
 import {MbtiTestTranslation} from "./src/entities/mbti-test-translation.entity";
@@ -87,19 +70,25 @@ import {CreatePublicationsTable1748776887533} from "./src/migrations/17487768875
 import {Publication} from "./src/entities/publication.entity";
 import {PublicationTranslation} from "./src/entities/publication-translation.entity";
 import {CreateTests1748798429333} from "./src/migrations/1748798429333-CreateTests";
+import {CreateUserReadPublications1749318342183} from "./src/migrations/1749318342183-CreateUserReadPublications";
+import {CreateUserTestPassages1749318474888} from "./src/migrations/1749318474888-CreateUserTestPassages";
+import {UserReadPublication} from "./src/entities/user-read-publication.entity";
+import {UserTestPassage} from "./src/entities/user-test-passage.entity";
+import {Test} from "./src/entities/test.entity";
+import {TestTranslation} from "./src/entities/test-translation.entity";
+import {TestQuestion} from "./src/entities/test-question.entity";
+import {TestQuestionTranslation} from "./src/entities/test-question-translation.entity";
+import {TestAnswerOption} from "./src/entities/test-answer-option.entity";
+import {TestAnswerOptionTranslation} from "./src/entities/test-answer-option-translation.entity";
 
 export const AppDataSource = new DataSource({
-    type: 'mysql', // Тип бази даних, змінено на MySQL
+    type: 'postgres',
     host: 'localhost',
-    port: 3306, // Порт за замовчуванням для MySQL
+    port: 5432,
     username: 'shark',
-    password: '11111111',
-    database: 'shark',
+    password: 'shark',
+    database: 'shark_db',
     entities: [
-        // Test,
-        // TestAnswer,
-        // TestQuestion,
-        // TestLogic,
         User,
         Role,
 
@@ -140,6 +129,13 @@ export const AppDataSource = new DataSource({
         LearningPathDay,
         LearningPathDayTranslation,
 
+        Test,
+        TestTranslation,
+        TestQuestion,
+        TestQuestionTranslation,
+        TestAnswerOption,
+        TestAnswerOptionTranslation,
+
         Publication,
         PublicationTranslation,
 
@@ -155,6 +151,9 @@ export const AppDataSource = new DataSource({
         // AsvabTest,
         // AsvabQuestion,
         // AsvabAnswer,
+
+        UserTestPassage,
+        UserReadPublication,
 
         MbtiTest,
         MbtiTestTranslation,
@@ -193,6 +192,9 @@ export const AppDataSource = new DataSource({
         CreateLearningPath1748023989566,
         CreatePublicationsTable1748776887533,
         CreateTests1748798429333,
+
+        CreateUserReadPublications1749318342183,
+        CreateUserTestPassages1749318474888,
 
         // CreateRiasecTestAndQuestions1747246746111,
         CreateMbtiTest1747303830951,

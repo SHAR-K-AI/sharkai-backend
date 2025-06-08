@@ -18,21 +18,40 @@ export class CreateRolesTable1746472423946 implements MigrationInterface {
                         name: 'name',
                         type: 'varchar',
                         isUnique: true,
+                        isNullable: false,
+                    },
+                    {
+                        name: 'description',
+                        type: 'text',
+                        isNullable: true,
+                    },
+                    {
+                        name: 'is_active',
+                        type: 'boolean',
+                        default: true,
+                    },
+                    {
+                        name: 'created_at',
+                        type: 'timestamptz',
+                        default: 'now()',
+                    },
+                    {
+                        name: 'updated_at',
+                        type: 'timestamptz',
+                        default: 'now()',
                     },
                 ],
             }),
         );
 
-        await queryRunner.query(`
-      INSERT INTO roles (name) VALUES 
-        ('admin'),
-        ('moderator'),
-        ('user');
-    `);
+        await queryRunner.manager.insert('roles', [
+            {name: 'admin', description: 'Administrator with full access'},
+            {name: 'moderator', description: 'Moderator with limited access'},
+            {name: 'user', description: 'Regular user with basic permissions'},
+        ]);
     }
 
     public async down(queryRunner: QueryRunner): Promise<void> {
         await queryRunner.dropTable('roles');
     }
-
 }

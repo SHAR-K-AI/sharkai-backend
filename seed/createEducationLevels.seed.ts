@@ -91,6 +91,8 @@ export async function createEducationLevelsSeed() {
 
     for (const levelData of educationLevelsData) {
         const level = await educationLevelRepo.save({
+            code: levelData.code,
+            isced_level: levelData.isced_level,
             created_at: new Date(),
             updated_at: new Date(),
         });

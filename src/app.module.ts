@@ -27,20 +27,21 @@ import {LearningPathModule} from "./modules/learning-path.module";
 import {UserTestResultsModule} from "./modules/user-test-results.module";
 import {PublicationsModule} from "./modules/publications.module";
 import {TestsModule} from "./modules/tests.module";
+import {UserReadPublicationModule} from "./modules/user-read-publication.module";
 
 
 @Module({
     imports: [
         ConfigModule.forRoot({isGlobal: true}), // Для доступу до env-змінних
         TypeOrmModule.forRoot({
-            type: 'mysql',
+            type: 'postgres',
             host: 'localhost',
-            port: 3306,
+            port: 5432,
             username: 'shark',
-            password: '11111111',
-            database: 'shark',
+            password: 'shark',
+            database: 'shark_db',
             entities: [__dirname + '/**/*.entity{.ts,.js}'],
-            synchronize: false, // true тільки в розробці
+            synchronize: false,
             migrations: ['dist/migrations/*.js'],
         }),
         AuthModule,
@@ -64,6 +65,8 @@ import {TestsModule} from "./modules/tests.module";
         RiasecQuestionModule,
         MbtiTestsModule,
         MbtiQuestionsModule,
+
+        UserReadPublicationModule,
 
 
         DiscModule,

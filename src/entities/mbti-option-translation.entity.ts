@@ -3,10 +3,10 @@ import {MbtiOption} from "./mbti-option.entity";
 
 @Entity('mbti_option_translations')
 export class MbtiOptionTranslation {
-    @PrimaryColumn('char', { length: 36 })
+    @PrimaryColumn('char')
     id: string;
 
-    @Column({ name: 'option_id', type: 'char', length: 36 })
+    @Column({ name: 'option_id', type: 'char' })
     optionId: string;
 
     @Column()

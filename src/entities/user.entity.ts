@@ -19,6 +19,14 @@ import {Principle} from "./principle.entity";
 import {EnvironmentType} from "./environment-type.entity";
 import {EmploymentType} from "./employment-type.entity";
 import {LearningPath} from "./learning-path.entity";
+import {UserTestPassage} from "./user-test-passage.entity";
+import {UserReadPublication} from "./user-read-publication.entity";
+
+export enum CareerPathChoice {
+    FIND = 'find',
+    SWITCH = 'switch',
+    GROW = 'grow',
+}
 
 @Entity({ name: 'users' })
 export class User {
@@ -34,8 +42,18 @@ export class User {
     @Column({ type: 'date', nullable: true })
     dob: Date;
 
+    // @Column({
+    //     type: 'enum',
+    //     enum: CareerPathChoice,
+    //     nullable: true,
+    // })
+    // careerPathChoice?: CareerPathChoice;
+
     @Column({ name: 'refresh_token', nullable: true })
     refreshToken: string;
+
+    // @Column({ name: 'current_profession_id', nullable: true })
+    // currentProfessionId?: number;
 
     @Column({ nullable: true })
     password: string;
@@ -187,4 +205,9 @@ export class User {
     @OneToMany(() => LearningPath, path => path.user)
     learningPaths: LearningPath[];
 
+    @OneToMany(() => UserTestPassage, (passage) => passage.user)
+    testPassages: UserTestPassage[];
+
+    @OneToMany(() => UserReadPublication, (userRead) => userRead.user)
+    readPublications: UserReadPublication[];
 }

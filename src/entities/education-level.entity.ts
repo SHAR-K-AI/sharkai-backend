@@ -9,13 +9,16 @@ export class EducationLevel {
     @PrimaryGeneratedColumn()
     id: number;
 
-    @CreateDateColumn()
+    @CreateDateColumn({ type: 'timestamptz' })
     created_at: Date;
 
-    @UpdateDateColumn()
+    @UpdateDateColumn({ type: 'timestamptz' })
     updated_at: Date;
 
-    @OneToMany(() => EducationLevelTranslation, (t) => t.level, { cascade: true })
+    @OneToMany(() => EducationLevelTranslation, translation => translation.educationLevel, {
+        cascade: true,
+        eager: false,
+    })
     translations: EducationLevelTranslation[];
 
     @ManyToMany(() => User, (user) => user.educationLevels)

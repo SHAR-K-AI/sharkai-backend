@@ -10,6 +10,7 @@ import {
 } from 'typeorm';
 import { PublicationTranslation } from './publication-translation.entity';
 import {ProfessionCategory} from "./profession-category.entity";
+import {UserReadPublication} from "./user-read-publication.entity";
 
 @Entity('publications')
 export class Publication {
@@ -42,4 +43,7 @@ export class Publication {
     })
     @JoinColumn({ name: 'profession_code' })
     professionCategory: ProfessionCategory;
+
+    @OneToMany(() => UserReadPublication, (userRead) => userRead.publication)
+    userReads: UserReadPublication[];
 }

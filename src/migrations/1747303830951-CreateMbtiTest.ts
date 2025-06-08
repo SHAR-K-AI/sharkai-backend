@@ -1,30 +1,35 @@
-import {MigrationInterface, QueryRunner, Table, TableForeignKey} from "typeorm";
+import { MigrationInterface, QueryRunner, Table, TableForeignKey } from "typeorm";
 
 export class CreateMbtiTest1747303830951 implements MigrationInterface {
 
     public async up(queryRunner: QueryRunner): Promise<void> {
-
         await queryRunner.createTable(new Table({
             name: 'mbti_tests',
             columns: [
-                {name: 'id', type: 'char', length: '36', isPrimary: true, isGenerated: false},
-                {name: 'title', type: 'varchar', isNullable: true},
-                {name: 'subtitle', type: 'varchar', isNullable: true},
-                {name: 'description', type: 'text', isNullable: true},
-                {name: 'img_src', type: 'varchar', isNullable: true},
-                {name: 'created_at', type: 'timestamp', default: 'CURRENT_TIMESTAMP'},
+                { name: 'id', type: 'uuid', isPrimary: true },
+                { name: 'title', type: 'varchar', isNullable: true },
+                { name: 'subtitle', type: 'varchar', isNullable: true },
+                { name: 'description', type: 'text', isNullable: true },
+                { name: 'img_src', type: 'varchar', isNullable: true },
+                { name: 'created_at', type: 'timestamptz', default: 'now()' },
             ],
         }));
 
         await queryRunner.createTable(new Table({
             name: 'mbti_test_translations',
             columns: [
-                {name: 'id', type: 'char', length: '36', isPrimary: true},
-                {name: 'test_id', type: 'char', length: '36'},
-                {name: 'locale', type: 'varchar'},
-                {name: 'title', type: 'varchar', isNullable: true},
-                {name: 'subtitle', type: 'varchar', isNullable: true},
-                {name: 'description', type: 'text', isNullable: true},
+                { name: 'id', type: 'uuid', isPrimary: true },
+                { name: 'test_id', type: 'uuid' },
+                { name: 'locale', type: 'varchar', length: '5' },
+                { name: 'title', type: 'varchar', isNullable: true },
+                { name: 'subtitle', type: 'varchar', isNullable: true },
+                { name: 'description', type: 'text', isNullable: true },
+            ],
+            uniques: [
+                {
+                    name: 'UQ_mbti_test_translations_test_locale',
+                    columnNames: ['test_id', 'locale'],
+                }
             ],
         }));
 
@@ -33,15 +38,16 @@ export class CreateMbtiTest1747303830951 implements MigrationInterface {
             referencedColumnNames: ['id'],
             referencedTableName: 'mbti_tests',
             onDelete: 'CASCADE',
+            onUpdate: 'CASCADE',
         }));
 
         await queryRunner.createTable(new Table({
             name: 'mbti_questions',
             columns: [
-                {name: 'id', type: 'char', length: '36', isPrimary: true},
-                {name: 'test_id', type: 'char', length: '36'},
-                {name: 'text', type: 'text', isNullable: true},
-                {name: 'created_at', type: 'timestamp', default: 'CURRENT_TIMESTAMP'},
+                { name: 'id', type: 'uuid', isPrimary: true },
+                { name: 'test_id', type: 'uuid' },
+                { name: 'text', type: 'text', isNullable: true },
+                { name: 'created_at', type: 'timestamptz', default: 'now()' },
             ],
         }));
 
@@ -50,15 +56,22 @@ export class CreateMbtiTest1747303830951 implements MigrationInterface {
             referencedColumnNames: ['id'],
             referencedTableName: 'mbti_tests',
             onDelete: 'CASCADE',
+            onUpdate: 'CASCADE',
         }));
 
         await queryRunner.createTable(new Table({
             name: 'mbti_question_translations',
             columns: [
-                {name: 'id', type: 'char', length: '36', isPrimary: true},
-                {name: 'question_id', type: 'char', length: '36'},
-                {name: 'locale', type: 'varchar'},
-                {name: 'text', type: 'text', isNullable: true},
+                { name: 'id', type: 'uuid', isPrimary: true },
+                { name: 'question_id', type: 'uuid' },
+                { name: 'locale', type: 'varchar', length: '5' },
+                { name: 'text', type: 'text', isNullable: true },
+            ],
+            uniques: [
+                {
+                    name: 'UQ_mbti_question_translations_question_locale',
+                    columnNames: ['question_id', 'locale'],
+                }
             ],
         }));
 
@@ -67,16 +80,17 @@ export class CreateMbtiTest1747303830951 implements MigrationInterface {
             referencedColumnNames: ['id'],
             referencedTableName: 'mbti_questions',
             onDelete: 'CASCADE',
+            onUpdate: 'CASCADE',
         }));
 
         await queryRunner.createTable(new Table({
             name: 'mbti_options',
             columns: [
-                {name: 'id', type: 'char', length: '36', isPrimary: true},
-                {name: 'question_id', type: 'char', length: '36'},
-                {name: 'dimension', type: 'varchar'},
-                {name: 'img_src', type: 'varchar', isNullable: true},
-                {name: 'created_at', type: 'timestamp', default: 'CURRENT_TIMESTAMP'},
+                { name: 'id', type: 'uuid', isPrimary: true },
+                { name: 'question_id', type: 'uuid' },
+                { name: 'dimension', type: 'varchar', length: '10' }, // Наприклад, 'EI', 'SN', 'TF', 'JP'
+                { name: 'img_src', type: 'varchar', isNullable: true },
+                { name: 'created_at', type: 'timestamptz', default: 'now()' },
             ],
         }));
 
@@ -85,16 +99,23 @@ export class CreateMbtiTest1747303830951 implements MigrationInterface {
             referencedColumnNames: ['id'],
             referencedTableName: 'mbti_questions',
             onDelete: 'CASCADE',
+            onUpdate: 'CASCADE',
         }));
 
         await queryRunner.createTable(new Table({
             name: 'mbti_option_translations',
             columns: [
-                {name: 'id', type: 'char', length: '36', isPrimary: true},
-                {name: 'option_id', type: 'char', length: '36'},
-                {name: 'locale', type: 'varchar'},
-                {name: 'text', type: 'text', isNullable: true},
-                {name: 'description', type: 'text', isNullable: true},
+                { name: 'id', type: 'uuid', isPrimary: true },
+                { name: 'option_id', type: 'uuid' },
+                { name: 'locale', type: 'varchar', length: '5' },
+                { name: 'text', type: 'text', isNullable: true },
+                { name: 'description', type: 'text', isNullable: true },
+            ],
+            uniques: [
+                {
+                    name: 'UQ_mbti_option_translations_option_locale',
+                    columnNames: ['option_id', 'locale'],
+                }
             ],
         }));
 
@@ -103,15 +124,28 @@ export class CreateMbtiTest1747303830951 implements MigrationInterface {
             referencedColumnNames: ['id'],
             referencedTableName: 'mbti_options',
             onDelete: 'CASCADE',
+            onUpdate: 'CASCADE',
         }));
     }
 
     public async down(queryRunner: QueryRunner): Promise<void> {
-        await queryRunner.dropTable('mbti_option_translations');
-        await queryRunner.dropTable('mbti_options');
-        await queryRunner.dropTable('mbti_question_translations');
-        await queryRunner.dropTable('mbti_questions');
-        await queryRunner.dropTable('mbti_test_translations');
-        await queryRunner.dropTable('mbti_tests');
+        const tables = [
+            'mbti_option_translations',
+            'mbti_options',
+            'mbti_question_translations',
+            'mbti_questions',
+            'mbti_test_translations',
+            'mbti_tests',
+        ];
+
+        for (const tableName of tables) {
+            const table = await queryRunner.getTable(tableName);
+            if (table) {
+                for (const fk of table.foreignKeys) {
+                    await queryRunner.dropForeignKey(tableName, fk);
+                }
+            }
+            await queryRunner.dropTable(tableName);
+        }
     }
 }

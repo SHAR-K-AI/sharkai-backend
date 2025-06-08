@@ -16,7 +16,7 @@ export async function createMbtiTestWithQuestions() {
     const optionTransRepo = AppDataSource.getRepository(MbtiOptionTranslation);
 
     const test = await testRepo.save({
-        id: 'mbti',
+        id: uuidv4(),
         created_at: new Date(),
     });
 

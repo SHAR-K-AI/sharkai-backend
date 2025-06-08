@@ -1,5 +1,5 @@
 import { Controller, Get, Post, Body, Param, Delete, Put } from '@nestjs/common';
-import { EducationLevelService } from './education-level.service';
+import { EducationLevelService } from '../services/education-level.service';
 import {CreateEducationLevelDto} from "../dto/create-education-level.dto";
 import {UpdateEducationLevelDto} from "../dto/update-education-level.dto";
 

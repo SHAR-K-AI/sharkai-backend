@@ -9,7 +9,7 @@ import {Test} from "./test.entity";
 
 @Entity('test_questions')
 export class TestQuestion {
-    @PrimaryColumn({ type: 'varchar', length: 36 })
+    @PrimaryColumn({ type: 'varchar' })
     id: string;
 
     @Column({ name: 'order', type: 'int' })
