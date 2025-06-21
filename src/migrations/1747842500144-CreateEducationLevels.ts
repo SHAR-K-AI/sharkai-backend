@@ -10,7 +10,7 @@ export class CreateEducationLevels1747842500144 implements MigrationInterface {
                 columns: [
                     {
                         name: "id",
-                        type: "serial",               // serial - автоінкрементний integer у PostgreSQL
+                        type: "serial",
                         isPrimary: true,
                     },
                     {

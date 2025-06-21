@@ -41,9 +41,10 @@ export class PublicationsService {
     }
 
     async findOne(id: number) {
+        console.log(id, "id")
         const publication = await this.repo.findOne({
             where: { id },
-            relations: ['translations', 'profession'],
+            relations: ['translations', /*'professionCategory'*/],
         });
         if (!publication) throw new NotFoundException('Publication not found');
         return publication;

@@ -10,5 +10,6 @@ import {PublicationTranslation} from "../entities/publication-translation.entity
     imports: [TypeOrmModule.forFeature([Publication, PublicationTranslation])],
     controllers: [PublicationsController],
     providers: [PublicationsService],
+    exports: [PublicationsService]
 })
 export class PublicationsModule {}

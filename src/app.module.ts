@@ -28,6 +28,8 @@ import {UserTestResultsModule} from "./modules/user-test-results.module";
 import {PublicationsModule} from "./modules/publications.module";
 import {TestsModule} from "./modules/tests.module";
 import {UserReadPublicationModule} from "./modules/user-read-publication.module";
+import {LearningPathDaysService} from "./services/learning-path-days.service";
+import {LearningPathDaysModule} from "./modules/learning-path-day.module";
 
 
 @Module({
@@ -55,7 +57,9 @@ import {UserReadPublicationModule} from "./modules/user-read-publication.module"
         PrincipleModule,
         EnvironmentTypesModule,
         EmploymentTypesModule,
+
         LearningPathModule,
+        LearningPathDaysModule,
         UserTestResultsModule,
 
         PublicationsModule,

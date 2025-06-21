@@ -98,7 +98,7 @@ export async function createEducationLevelsSeed() {
         });
 
         const translations = levelData.translations.map(t => ({
-            level,
+            educationLevel: level,
             languageCode: t.languageCode,
             field: t.field,
             value: t.value,

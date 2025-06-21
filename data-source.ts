@@ -66,10 +66,8 @@ import {MbtiOptionTranslation} from "./src/entities/mbti-option-translation.enti
 import {AchievementTranslation} from "./src/entities/achievement-translation.entity";
 import {LearningPathTranslation} from "./src/entities/learning-path-translation.entity";
 import {LearningPathDayTranslation} from "./src/entities/learning-path-day-translation.entity";
-import {CreatePublicationsTable1748776887533} from "./src/migrations/1748776887533-CreatePublicationsTable";
 import {Publication} from "./src/entities/publication.entity";
 import {PublicationTranslation} from "./src/entities/publication-translation.entity";
-import {CreateTests1748798429333} from "./src/migrations/1748798429333-CreateTests";
 import {CreateUserReadPublications1749318342183} from "./src/migrations/1749318342183-CreateUserReadPublications";
 import {CreateUserTestPassages1749318474888} from "./src/migrations/1749318474888-CreateUserTestPassages";
 import {UserReadPublication} from "./src/entities/user-read-publication.entity";
@@ -80,6 +78,8 @@ import {TestQuestion} from "./src/entities/test-question.entity";
 import {TestQuestionTranslation} from "./src/entities/test-question-translation.entity";
 import {TestAnswerOption} from "./src/entities/test-answer-option.entity";
 import {TestAnswerOptionTranslation} from "./src/entities/test-answer-option-translation.entity";
+import {CreatePublicationsTable1748023989466} from "./src/migrations/1748023989466-CreatePublicationsTable";
+import {CreateTests1748023989456} from "./src/migrations/1748023989456-CreateTests";
 
 export const AppDataSource = new DataSource({
     type: 'postgres',
@@ -190,8 +190,8 @@ export const AppDataSource = new DataSource({
         CreateUsersEmploymentTypes1747942567882,
 
         CreateLearningPath1748023989566,
-        CreatePublicationsTable1748776887533,
-        CreateTests1748798429333,
+        CreatePublicationsTable1748023989466,
+        CreateTests1748023989456,
 
         CreateUserReadPublications1749318342183,
         CreateUserTestPassages1749318474888,

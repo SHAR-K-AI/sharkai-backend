@@ -23,7 +23,7 @@ import {Interest} from "../entities/interest.entity";
     ]),],
     providers: [UsersService],
     controllers: [UsersController],
-    exports: [UsersService],  // Експортуємо для використання в AuthService
+    exports: [UsersService],
 })
 export class UsersModule {
 }

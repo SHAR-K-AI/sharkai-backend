@@ -19,9 +19,6 @@ export class EducationLevelTranslation {
     educationLevel: EducationLevel;
 
     @Column()
-    education_level_id: number;
-
-    @Column()
     field: string;
 
     @Column('text')

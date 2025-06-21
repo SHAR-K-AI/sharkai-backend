@@ -6,7 +6,7 @@ import {
     TableUnique,
 } from "typeorm";
 
-export class CreatePublicationsTable1748776887533 implements MigrationInterface {
+export class CreatePublicationsTable1748023989466 implements MigrationInterface {
     public async up(queryRunner: QueryRunner): Promise<void> {
         await queryRunner.createTable(
             new Table({

@@ -93,6 +93,7 @@ export class CreateLearningPath1748023989566 implements MigrationInterface {
                 { name: "task_type", type: "varchar" },
                 { name: "url", type: "varchar", isNullable: true },
                 { name: "test_id", type: "uuid", isNullable: true },
+                { name: "publication_id", type: "int", isNullable: true },
                 { name: "achievement_id", type: "uuid", isNullable: true },
                 { name: "created_at", type: "timestamptz", default: "now()" },
                 {
@@ -116,6 +117,20 @@ export class CreateLearningPath1748023989566 implements MigrationInterface {
                 name: "FK_learning_path_days_achievement_id",
                 columnNames: ["achievement_id"],
                 referencedTableName: "achievements",
+                referencedColumnNames: ["id"],
+                onDelete: "SET NULL",
+            }),
+            new TableForeignKey({
+                name: "FK_learning_path_days_test_id",
+                columnNames: ["test_id"],
+                referencedTableName: "tests",
+                referencedColumnNames: ["id"],
+                onDelete: "SET NULL",
+            }),
+            new TableForeignKey({
+                name: "FK_learning_path_days_publication_id",
+                columnNames: ["publication_id"],
+                referencedTableName: "publications",
                 referencedColumnNames: ["id"],
                 onDelete: "SET NULL",
             }),
